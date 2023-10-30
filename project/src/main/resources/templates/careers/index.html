@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head th:insert="layout/header.html :: head">
+
+</head>
+
+<body>
+    <div th:replace="layout/header.html :: header">
+
+    </div>
+
+    <div id="careers-div">
+        <div id="careers-div1">
+
+        </div>
+
+        <div id="inside-div">
+            <p>JOIN US!</p>
+            <p>Find And Apply For Your Suitable Career</p>
+            <p>Our company thrives due to the talents and diverse perspectives of our diverse team, which is why we are
+                an equal opportunity employer. Let us know who you are.</p>
+        </div>
+
+        <div id="search-div">
+            <select id="select-input">
+                <option value="" selected>Job Type</option>
+                <option value="Full Time">Full Time</option>
+                <option value="Contract">Contract</option>
+            </select>
+            <input id="search-input" placeholder="Kata Kunci Pencarian">
+            </input>
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+        <div id="careers-div2">
+            <div id="job-data">
+                <p>27 October 2023</p>
+                <p>Software Engineer</p>
+                <p>Full Time</p>
+                <div id="cd2-btndiv">
+                    <button>
+                        LEARN MORE
+                    </button>
+                </div>
+            </div>
+
+            <div id="job-data">
+                <p>23 October 2023</p>
+                <p>HR Intern</p>
+                <p>Contract</p>
+                <div id="cd2-btndiv">
+                    <button>
+                        LEARN MORE
+                    </button>
+                </div>
+            </div>
+
+            <div id="job-data" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <p>12 October 2023</p>
+                <p>Graduate Development Program</p>
+                <p>Contract</p>
+                <div id="cd2-btndiv">
+                    <button>
+                        LEARN MORE
+                    </button>
+                </div>
+            </div>
+
+            <div id="job-data">
+                <p>23 October 2023</p>
+                <p>Quality Assurance</p>
+                <p>Full Time</p>
+                <div id="cd2-btndiv">
+                    <button>
+                        LEARN MORE
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
+            <div class="modal-dialog modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div>
+                            <p class="modal-title">Graduate Development Program</p>
+                            <p id="info" class="modal-title">Jakarta &#x2022; Contract Employment &#x2022; Posted</p>
+                        </div>
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            Amartek's IT Graduate Development Program attract graduates from top-tier universities who
+                            are enthusiastic about professional development and aspire to work in a quick-changing and
+                            challenging IT industry.
+                            This 2 years program offers opportunity to broaden critical skills, receive mentoring from
+                            Senior Manager and expand your knowledge of our global businesses.
+                        </p>
+
+                        <div>
+                            <p>
+                                Perks and Benefit:
+                            </p>
+
+                            <ul>
+                                <li>Life Insurance</li>
+                                <li>Maternity/Paternity Leave</li>
+                                <li>Health Insurance</li>
+                                <li>Medical, Prescription, Dental, or Vision Plans</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <p>
+                                Minimum Requirement:
+                            </p>
+
+                            <ul>
+                                <li>Bachelor Degree in IT/Computer Science or in related fields</li>
+                                <li>Have an interest in Programming and Coding or Data</li>
+                                <li>Good Communication and presentation skills</li>
+                                <li>Excellent problem solving skill</li>
+                                <li>Strong desire to learn about IT and have a strong commitment</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="apply-btn">APPLY</button>
+                        <button type="button" id="close-btn" data-bs-dismiss="modal">CLOSE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="layout/footer.html :: footer">
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+        crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $("#select-input").change(function() {
+                var selectValue = $(this).val().toLowerCase();
+                $("#careers-div2 #job-data").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(selectValue) > -1)
+                });
+            });
+
+            $("#search-input").on("keyup", function () {
+                var searchvalue = $(this).val().toLowerCase();
+                $("#careers-div2 #job-data").filter(function () {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(searchvalue) > -1)
+                });
+            });
+        });
+
+        var datetime = new Date("2023-10-12 01:02:03.123456").getTime();
+        var now = new Date().getTime();
+        console.log(now);
+        console.log(datetime);
+        if (datetime < now) {
+            var milisec_diff = now - datetime;
+        } else {
+            var milisec_diff = datetime - now;
+        }
+
+        var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+        var date_diff = new Date(milisec_diff);
+
+        if (days > 30) {
+            if (Math.floor(days / 30) > 1) {
+                document.getElementById("info").innerHTML += " " + Math.floor(days / 30) + " months ago";
+            } else {
+                document.getElementById("info").innerHTML += " " + Math.floor(days / 30) + " month ago";
+            }
+        }
+        else if (days < 30) {
+            if (days > 7) {
+                if (Math.floor(days / 7) > 1) {
+                    document.getElementById("info").innerHTML += " " + Math.floor(days / 7) + " weeks ago";
+                } else {
+                    document.getElementById("info").innerHTML += " " + Math.floor(days / 7) + " week ago";
+                }
+            } else {
+                if (days > 1) {
+                    document.getElementById("info").innerHTML += " " + days + " days ago";
+                } else if (days == 1) {
+                    document.getElementById("info").innerHTML += " " + days + " day ago";
+                }
+            }
+        }
+        else if (days < 1) {
+            if (date_diff.getHours() > 1) {
+                document.getElementById("info").innerHTML += " " + date_diff.getHours() + " hours ago";
+            } else if (date_diff.getHours() == 1) {
+                document.getElementById("info").innerHTML += " " + date_diff.getHours() + " hour ago";
+            }
+        }
+        else if (date_diff.getHours() < 1) {
+            if (date_diff.getMinutes() > 1) {
+                document.getElementById("info").innerHTML += " " + date_diff.getMinutes() + " minutes ago";
+            } else if (date_diff.getMinutes() == 1) {
+                document.getElementById("info").innerHTML += " " + date_diff.getMinutes() + " minute ago";
+            }
+        }
+        else if (date_diff.getMinutes() < 60) {
+            if (date_diff.getSeconds() > 1) {
+                document.getElementById("info").innerHTML += " " + date_diff.getSeconds() + " seconds ago";
+            }
+        }
+
+        var popover = new bootstrap.Popover(document.querySelector('#profile-btn'), {
+            title: "User Menu",
+            container: 'body',
+            trigger: 'click',
+            html: true,
+            content:
+                '<a href="/">View Profile</a>\n' +
+                '<hr>\n' +
+                '<a id="logout-btn" href="interviews">Logout</a>',
+            template:
+                '<div class="popover" role="tooltip">\n' +
+                '<h3 class="popover-header"></h3>\n' +
+                '<div class="popover-body">\n' +
+                '</div>\n' +
+                '</div>'
+        })
+    </script>
+</body>
+
+</html>
