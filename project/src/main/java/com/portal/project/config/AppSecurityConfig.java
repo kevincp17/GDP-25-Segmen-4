@@ -43,6 +43,7 @@ public class AppSecurityConfig {
             try {
                 auth
                 .antMatchers("api/**").permitAll()
+                .antMatchers("register/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

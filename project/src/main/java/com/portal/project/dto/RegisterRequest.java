@@ -1,6 +1,7 @@
 package com.portal.project.dto;
 
 import  com.portal.project.model.Role;
+import com.portal.project.model.User;
 
 public class RegisterRequest {
     private Integer user_id;

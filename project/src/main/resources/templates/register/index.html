@@ -1,0 +1,36 @@
+<html>
+
+<body>
+    <p>hi</p>
+    <form th:action="@{/register/save}" method="post" th:object="${registerRequest}">
+        <input th:field="*{user_id}" name="id" id="id" type="text" hidden>
+        <br>
+
+        <text>name :</text>
+        <input th:field="*{name}" name="name" id="name" type="text">
+        <br>
+
+        <text>email : </text>
+        <input th:field="*{email}" name="email" id="email" type="text">
+        <br>
+
+        <text>password : </text>
+        <input th:field="*{password}" name="password" id="password" type="password">
+        <br>
+
+        <text>phone number : </text>
+        <input th:field="*{phone}" name="phone" id="phone" type="text">
+        <br>
+        <br>
+
+        <text>address : </text>
+        <input th:field="*{address}" name="address" id="address" type="text">
+        <br>
+
+        <input th:field="*{role}" th:value="3" name="role" id="role" type="role" hidden>
+
+        <button type="submit">SUBMIT</button> 
+    </form>
+</body>
+
+</html>

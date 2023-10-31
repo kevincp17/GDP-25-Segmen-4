@@ -20,7 +20,7 @@ import com.portal.project.dto.LoginResponse;
 
 @RestController
 @RequestMapping("api")
-public class AccountRestController {
+public class LoginRestController {
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired

@@ -13,7 +13,7 @@ import javax.persistence.Table;
 @Table(name="tb_m_cv")
 public class Cv {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     // @Column(name = "cv_id")
     private Integer cv_id;
     private String name;
@@ -29,11 +29,11 @@ public class Cv {
     private Skill skill;
 
     @ManyToOne
-    @JoinColumn(name = "experience_id")
+    @JoinColumn(name = "exp_id")
     private Experience experience;
 
     @ManyToOne
-    @JoinColumn(name = "education_id")
+    @JoinColumn(name = "edu_id")
     private Education education;
 
     @ManyToOne
