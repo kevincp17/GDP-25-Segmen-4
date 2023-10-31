@@ -60,5 +60,12 @@ public class User {
         this.role = role;
     }
 
-    
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
+    }
+
 }
