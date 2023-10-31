@@ -14,8 +14,8 @@ import javax.persistence.Table;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    private Integer id;
+    // @Column(name = "user_id")
+    private Integer user_id;
     private String email;
     private String password;
 
@@ -23,12 +23,12 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    public Integer getId() {
-        return id;
+    public Integer getUser_id() {
+        return user_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
     }
 
     public String getEmail() {

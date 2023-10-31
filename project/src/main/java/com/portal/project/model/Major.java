@@ -2,7 +2,6 @@ package com.portal.project.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,23 +10,22 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_m_role")
-public class Role {
+@Table(name="tb_m_major")
+public class Major {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "role_id")
-    private Integer role_id;
+    private Integer major_id;
     private String name;
-    
-    @OneToMany(mappedBy = "role")
-    public Set<User> users;
 
-    public Integer getRole_id() {
-        return role_id;
+    @OneToMany(mappedBy = "major")
+    public Set<Education> educations;
+
+    public Integer getMajor_id() {
+        return major_id;
     }
 
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
+    public void setMajor_id(Integer major_id) {
+        this.major_id = major_id;
     }
 
     public String getName() {
@@ -38,14 +36,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<Education> getEducations() {
+        return educations;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setEducations(Set<Education> educations) {
+        this.educations = educations;
     }
-
-    
-
 }

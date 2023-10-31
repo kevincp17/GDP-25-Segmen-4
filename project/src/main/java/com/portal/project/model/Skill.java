@@ -11,23 +11,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tb_m_role")
-public class Role {
+@Table(name="tb_m_skill")
+public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "role_id")
-    private Integer role_id;
+    // @Column(name = "skill_id")
+    private Integer skill_id;
     private String name;
-    
-    @OneToMany(mappedBy = "role")
-    public Set<User> users;
 
-    public Integer getRole_id() {
-        return role_id;
+    @OneToMany(mappedBy = "skill")
+    public Set<Cv> cvs;
+
+    public Integer getSkill_id() {
+        return skill_id;
     }
 
-    public void setRole_id(Integer role_id) {
-        this.role_id = role_id;
+    public void setSkill_id(Integer skill_id) {
+        this.skill_id = skill_id;
     }
 
     public String getName() {
@@ -38,14 +38,12 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<Cv> getCvs() {
+        return cvs;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setCvs(Set<Cv> cvs) {
+        this.cvs = cvs;
     }
-
     
-
 }
