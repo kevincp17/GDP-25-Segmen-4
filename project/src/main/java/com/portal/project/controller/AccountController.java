@@ -1,6 +1,7 @@
 package com.portal.project.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.portal.project.repository.RoleRepository;
 import com.portal.project.repository.UserRepository;
 import com.portal.project.dto.RegisterRequest;
+import com.portal.project.model.Cv;
 import com.portal.project.model.User;
 
 @Controller
@@ -19,6 +21,8 @@ public class AccountController {
     private RoleRepository roleRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     
     // register
     @GetMapping("register")
@@ -29,24 +33,22 @@ public class AccountController {
         return "user/register";
     }
 
-    //     //save register
+    // //save register
     // @PostMapping("save")
     // public String save(@RequestBody RegisterRequest registerRequest){
     //     User user = new User();
 
-    //     user.setId(registerRequest.getUser_id());
-    //     user.setName(registerRequest.getName());
+    //     user.setUser_id(registerRequest.getUser_id());
     //     user.setEmail(registerRequest.getEmail());
-    //     user.setPhone(registerRequest.getPhone());
-    //     user.setAddress(registerRequest.getAddress());
+    //     user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
     //     userRepository.save(user);
-    //     Boolean isSaved = userRepository.findById(user.getId()).isPresent();
+    //     Boolean isSaved = userRepository.findById(user.getUser_id()).isPresent();
     //     if(isSaved){
-    //         User user = new User();
+    //         Cv cv = new Cv();
 
     //         user.setId(user.getId());
-    //         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+            
 
     //         user.setRole(registerRequest.getRole());
     //         userRepository.save(user);
