@@ -41,16 +41,19 @@ public class AccountController {
     //     user.setUser_id(registerRequest.getUser_id());
     //     user.setEmail(registerRequest.getEmail());
     //     user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
+    //     user.setRole(registerRequest.getRole());
 
     //     userRepository.save(user);
     //     Boolean isSaved = userRepository.findById(user.getUser_id()).isPresent();
     //     if(isSaved){
     //         Cv cv = new Cv();
 
-    //         user.setId(user.getId());
-            
+    //         cv.setCv_id(user.getUser_id());
+    //         cv.setName(registerRequest.getName());
+    //         cv.setPhone(registerRequest.getPhone());
+    //         cv.setAddress(registerRequest.getAddress());
+    //         cv.setPhoto(registerRequest.getph);
 
-    //         user.setRole(registerRequest.getRole());
     //         userRepository.save(user);
     //         Boolean isSaved2 = userRepository.findById(user.getId()).isPresent();
     //         if(isSaved2){
