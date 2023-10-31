@@ -50,7 +50,11 @@
     justify-items: center;
     display: grid;
     grid-template-columns: auto auto auto auto;
+    row-gap: 38px;
     padding: 80px 20px 80px 20px;
+    background-image: url("../image/job-bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 #careers-div2 > div{

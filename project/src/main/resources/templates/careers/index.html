@@ -34,10 +34,11 @@
         </div>
 
         <div id="careers-div2">
-            <div id="job-data">
-                <p>27 October 2023</p>
-                <p>Software Engineer</p>
-                <p>Full Time</p>
+            <div id="job-data" th:onclick="'javascript:getJobModal(' + ${career.job_id} + ')'"
+                th:each="career : ${careers}" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <p th:text="${#dates.format(career.start_post_date, 'dd MMMM yyyy')}"></p>
+                <p th:text="${career.title}"></p>
+                <p th:text="${career.type}"></p>
                 <div id="cd2-btndiv">
                     <button>
                         LEARN MORE
@@ -45,7 +46,7 @@
                 </div>
             </div>
 
-            <div id="job-data">
+            <!-- <div id="job-data">
                 <p>23 October 2023</p>
                 <p>HR Intern</p>
                 <p>Contract</p>
@@ -76,7 +77,7 @@
                         LEARN MORE
                     </button>
                 </div>
-            </div>
+            </div> -->
         </div>
 
         <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
@@ -84,19 +85,15 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <div>
-                            <p class="modal-title">Graduate Development Program</p>
+                            <p id="modal-title" class="modal-title"></p>
                             <p id="info" class="modal-title">Jakarta &#x2022; Contract Employment &#x2022; Posted</p>
                         </div>
 
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <p>
-                            Amartek's IT Graduate Development Program attract graduates from top-tier universities who
-                            are enthusiastic about professional development and aspire to work in a quick-changing and
-                            challenging IT industry.
-                            This 2 years program offers opportunity to broaden critical skills, receive mentoring from
-                            Senior Manager and expand your knowledge of our global businesses.
+                        <p id="modal-desc">
+                            
                         </p>
 
                         <div>
@@ -117,13 +114,16 @@
                                 Minimum Requirement:
                             </p>
 
-                            <ul>
+                            <div id="modal-req">
+
+                            </div>
+                            <!-- <ul>
                                 <li>Bachelor Degree in IT/Computer Science or in related fields</li>
                                 <li>Have an interest in Programming and Coding or Data</li>
                                 <li>Good Communication and presentation skills</li>
                                 <li>Excellent problem solving skill</li>
                                 <li>Strong desire to learn about IT and have a strong commitment</li>
-                            </ul>
+                            </ul> -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -150,8 +150,64 @@
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.js"></script>
 
     <script>
+        let baseUrl = "http://localhost:8088/api/"
+        var now = new Date().getTime();
+
+        let getJobModal = (id) => {
+            $.ajax({
+                "url": baseUrl + "careers/" + id,
+                "type": "GET",
+                "contentType": "application/json"
+            }).done((response) => {
+                console.log(response.result);
+                var datetime = new Date(response.result.start_post_date).getTime();
+
+                if (datetime < now) {
+                    var milisec_diff = now - datetime;
+                } else {
+                    var milisec_diff = datetime - now;
+                }
+
+                var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+                var date_diff = new Date(milisec_diff);
+
+                if (days > 30) {
+                    if (Math.floor(days / 30) > 1) {
+                        document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted " + Math.floor(days / 30) + " months ago";
+                    } else {
+                        document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted " + Math.floor(days / 30) + " month ago";
+                    }   
+                }
+                else if (days < 30) {
+                    if (days > 7) {
+                        if (Math.floor(days / 7) > 1) {
+                            document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted " + Math.floor(days / 7) + " weeks ago";
+                        } else {
+                            document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted " + Math.floor(days / 7) + " week ago";
+                        }
+                    } else {
+                        if (days > 1) {
+                            document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted " + days + " days ago";
+                        } else if (days == 1) {
+                            document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted " + days + " day ago";
+                        }
+                    }
+                }
+                else if (days < 1) {
+                    document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted today";
+                }
+
+                document.getElementById("modal-title").innerHTML = response.result.title
+                document.getElementById("modal-desc").innerHTML = response.result.description
+                document.getElementById("modal-req").innerHTML = response.result.requirement
+                // document.getElementById("info").innerHTML = response.result.placement + " &#x2022; " + response.result.type + " Employment &#x2022; Posted"
+            }).fail((error) => {
+                console.log(error);
+            })
+        }
+
         $(document).ready(function () {
-            $("#select-input").change(function() {
+            $("#select-input").change(function () {
                 var selectValue = $(this).val().toLowerCase();
                 $("#careers-div2 #job-data").filter(function () {
                     $(this).toggle($(this).text().toLowerCase().indexOf(selectValue) > -1)
@@ -166,68 +222,13 @@
             });
         });
 
-        var datetime = new Date("2023-10-12 01:02:03.123456").getTime();
-        var now = new Date().getTime();
-        console.log(now);
-        console.log(datetime);
-        if (datetime < now) {
-            var milisec_diff = now - datetime;
-        } else {
-            var milisec_diff = datetime - now;
-        }
-
-        var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
-        var date_diff = new Date(milisec_diff);
-
-        if (days > 30) {
-            if (Math.floor(days / 30) > 1) {
-                document.getElementById("info").innerHTML += " " + Math.floor(days / 30) + " months ago";
-            } else {
-                document.getElementById("info").innerHTML += " " + Math.floor(days / 30) + " month ago";
-            }
-        }
-        else if (days < 30) {
-            if (days > 7) {
-                if (Math.floor(days / 7) > 1) {
-                    document.getElementById("info").innerHTML += " " + Math.floor(days / 7) + " weeks ago";
-                } else {
-                    document.getElementById("info").innerHTML += " " + Math.floor(days / 7) + " week ago";
-                }
-            } else {
-                if (days > 1) {
-                    document.getElementById("info").innerHTML += " " + days + " days ago";
-                } else if (days == 1) {
-                    document.getElementById("info").innerHTML += " " + days + " day ago";
-                }
-            }
-        }
-        else if (days < 1) {
-            if (date_diff.getHours() > 1) {
-                document.getElementById("info").innerHTML += " " + date_diff.getHours() + " hours ago";
-            } else if (date_diff.getHours() == 1) {
-                document.getElementById("info").innerHTML += " " + date_diff.getHours() + " hour ago";
-            }
-        }
-        else if (date_diff.getHours() < 1) {
-            if (date_diff.getMinutes() > 1) {
-                document.getElementById("info").innerHTML += " " + date_diff.getMinutes() + " minutes ago";
-            } else if (date_diff.getMinutes() == 1) {
-                document.getElementById("info").innerHTML += " " + date_diff.getMinutes() + " minute ago";
-            }
-        }
-        else if (date_diff.getMinutes() < 60) {
-            if (date_diff.getSeconds() > 1) {
-                document.getElementById("info").innerHTML += " " + date_diff.getSeconds() + " seconds ago";
-            }
-        }
-
         var popover = new bootstrap.Popover(document.querySelector('#profile-btn'), {
             title: "User Menu",
             container: 'body',
             trigger: 'click',
             html: true,
             content:
-                '<a href="/">View Profile</a>\n' +
+                '<a href="profile">View Profile</a>\n' +
                 '<hr>\n' +
                 '<a id="logout-btn" href="interviews">Logout</a>',
             template:
