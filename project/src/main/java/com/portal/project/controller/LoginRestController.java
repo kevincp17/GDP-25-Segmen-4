@@ -29,7 +29,7 @@ public class LoginRestController {
 	private MyUserDetails myUserDetails;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest loginRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(LoginRequest loginRequest) throws Exception {
 
 		authenticate(loginRequest.getEmail(), loginRequest.getPassword());
 
