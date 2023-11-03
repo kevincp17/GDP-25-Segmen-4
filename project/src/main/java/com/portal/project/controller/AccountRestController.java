@@ -76,7 +76,7 @@ public class AccountRestController {
 
     //login authenticate
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-	public ResponseEntity<?> createAuthenticationToken(LoginRequest loginRequest) throws Exception {
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody LoginRequest loginRequest) throws Exception {
 
 		authenticate(loginRequest.getEmail(), loginRequest.getPassword());
 

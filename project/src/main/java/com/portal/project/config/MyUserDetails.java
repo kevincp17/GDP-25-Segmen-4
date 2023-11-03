@@ -20,6 +20,7 @@ public class MyUserDetails implements UserDetails, UserDetailsService {
     private UserRepository userRepository;
     private String email;
     private String password;
+    private Integer user_id;
 
     private GrantedAuthority grantedAuthority;
 
@@ -27,9 +28,10 @@ public class MyUserDetails implements UserDetails, UserDetailsService {
         super();
     }
 
-    public MyUserDetails(String email, String password, String role) {
+    public MyUserDetails(String email, String password, String role, Integer user_id) {
         this.email = email;
         this.password = password;
+        this.user_id = user_id;
         this.grantedAuthority = new SimpleGrantedAuthority(role);
     }
 
@@ -48,6 +50,10 @@ public class MyUserDetails implements UserDetails, UserDetailsService {
     @Override
     public String getPassword() {
         return password;
+    }
+
+    public Integer getUser_id() {
+        return user_id;
     }
 
     @Override

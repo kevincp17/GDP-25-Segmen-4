@@ -9,6 +9,7 @@ import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +27,12 @@ public class JwtTokenUtil implements Serializable {
 	@Value("${jwt.secret}")
 	private String secret;
 
-	//retrieve username from jwt token
+	// retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
 		return getClaimFromToken(token, Claims::getSubject);
 	}
 
-	//retrieve expiration date from jwt token
+	// retrieve expiration date from jwt token
 	public Date getExpirationDateFromToken(String token) {
 		return getClaimFromToken(token, Claims::getExpiration);
 	}
@@ -41,33 +42,47 @@ public class JwtTokenUtil implements Serializable {
 		return claimsResolver.apply(claims);
 	}
 
-    //for retrieveing any information from token we will need the secret key
+	// for retrieveing any information from token we will need the secret key
 	private Claims getAllClaimsFromToken(String token) {
 		Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
 		// System.out.println(claims.getSubject());
 		return claims;
 	}
 
-	//check if the token has expired
+	// check if the token has expired
 	private Boolean isTokenExpired(String token) {
 		final Date expiration = getExpirationDateFromToken(token);
 		return expiration.before(new Date());
 	}
 
-	//generate token for user
+	// generate token for user
 	public String generateToken(UserDetails userDetails) {
-        Map<String, Object> claims = new HashMap<>();
-        return generateToken(claims, userDetails.getUsername(), userDetails.getAuthorities());
-    } 
+		Map<String, Object> claims = new HashMap<>();
+		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
+		if (roles.contains(new SimpleGrantedAuthority("ta"))) {
+			claims.put("role", "ta");
+		}
+		if (roles.contains(new SimpleGrantedAuthority("trainer"))) {
+			claims.put("role", "trainer");
+		}
+		if (roles.contains(new SimpleGrantedAuthority("applicant"))) {
+			claims.put("role", "applicant");
+		}
+		if(userDetails instanceof MyUserDetails){
+			Integer user_id = ((MyUserDetails) userDetails).getUser_id();
+			claims.put("user_id", user_id);
+		}
+		return generateToken(claims, userDetails.getUsername(), userDetails.getAuthorities());
+	}
 
-	private String generateToken(Map<String, Object> claims, String subject, Collection<? extends GrantedAuthority> role) {
-		claims.put("role", role);
+	private String generateToken(Map<String, Object> claims, String subject,
+			Collection<? extends GrantedAuthority> role) {
 		return Jwts.builder().setClaims(claims).setSubject(subject).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY * 1000))
 				.signWith(SignatureAlgorithm.HS512, secret).compact();
 	}
 
-	//validate token
+	// validate token
 	public Boolean validateToken(String token, UserDetails userDetails) {
 		final String username = getUsernameFromToken(token);
 		return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
