@@ -42,8 +42,11 @@ public class AppSecurityConfig {
         httpSecurity.csrf().disable().authorizeHttpRequests((auth) -> {
             try {
                 auth
+                .antMatchers("/login/authenticate").permitAll()
+                // .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("api/**").permitAll()
-                .antMatchers("register/**").permitAll()
+                // .antMatchers("/api/**").permitAll()
+                .antMatchers("/register/**").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

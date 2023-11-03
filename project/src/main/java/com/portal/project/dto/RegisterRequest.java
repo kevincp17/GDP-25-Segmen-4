@@ -5,35 +5,34 @@ import com.portal.project.model.User;
 
 public class RegisterRequest {
     private Integer user_id;
+    private String name;
     private String email;
     private String password;
-    private Role role;
-
-    private String name;
     private String phone;
     private String address;
-    private String photo;
+    private Role role;
+    // private String photo;
 
-    public String getPhoto() {
-        return photo;
-    }
+    // public String getPhoto() {
+    //     return photo;
+    // }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
+    // public void setPhoto(String photo) {
+    //     this.photo = photo;
+    // }
 
     public RegisterRequest(){
 
     }
 
-    public RegisterRequest(Integer user_id, String email, String password, Role role, String name, String phone, String address) {
+    public RegisterRequest(Integer user_id, String name, String email, String password, String phone, String address, Role role) {
         this.user_id = user_id;
+        this.name = name;
         this.email = email;
         this.password = password;
-        this.role = role;
-        this.name = name;
         this.phone = phone;
         this.address = address;
+        this.role = role;
     }
 
     public Integer getUser_id() {
