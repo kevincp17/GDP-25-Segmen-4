@@ -49,7 +49,7 @@
 #careers-div2{
     justify-items: center;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto;
     row-gap: 38px;
     padding: 80px 20px 80px 20px;
     background-image: url("../image/job-bg.jpg");
@@ -64,31 +64,39 @@
     border: 1px #E4E5E6 solid;
     border-radius: 10px;
     background-color: #F9F9FA;
-    width: 280px;
-    height: 230px;
+    width: 300px;
+    height: 315px;
 }
 
 #careers-div2 > div > p{
     margin-top: -5px;
 }
 
-#careers-div2 > div > p:first-child{
+#careers-div2 > div > img{
+    height: 120px;
+    margin: -20px -20px 10px -20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+#job-date{
     color:#93C953;
     font-weight: 600;
     flex-basis: 10%;
     font-size: 14px;
+    margin-bottom: 0px;
 }
 
-#careers-div2 > div > p:nth-child(2){
+#job-title{
     color:black;
     font-weight: 600;
     font-size: 23px;
     flex-basis: 20%;
-    margin-top: -17px;
-    margin-bottom: 5px;
+    margin-top: -25px;
+    margin-bottom: 0px;
 }
 
-#careers-div2 > div > p:last-child{
+#job-type{
     color:#B4B5B6;
     font-weight: 600;
     flex-basis: 20%;
@@ -121,8 +129,9 @@
 
 #cd2-btndiv{
     display: flex;
-    flex-basis: 50%;
+    flex-basis: 20%;
     align-items: flex-end;
+    padding-top: 5px;
 }
 
 #cd2-btndiv > button{
@@ -135,7 +144,7 @@
     border: 1px transparent solid;
     border-radius: 20px;
     font-size: 13px;
-    margin-top: 30px;
+    margin-top: 0px;
 }
 
 #careers-div2 > div:hover > #cd2-btndiv > button{

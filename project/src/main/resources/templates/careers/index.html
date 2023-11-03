@@ -36,48 +36,16 @@
         <div id="careers-div2">
             <div id="job-data" th:onclick="'javascript:getJobModal(' + ${career.job_id} + ')'"
                 th:each="career : ${careers}" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <p th:text="${#dates.format(career.start_post_date, 'dd MMMM yyyy')}"></p>
-                <p th:text="${career.title}"></p>
-                <p th:text="${career.type}"></p>
+                <img th:src="@{'/image/'+${career.picture}}"/>
+                <p id="job-date" th:text="${#dates.format(career.start_post_date, 'dd MMMM yyyy')}"></p>
+                <p id="job-title" th:text="${career.title}"></p>
+                <p id="job-type" th:text="${career.type}"></p>
                 <div id="cd2-btndiv">
                     <button>
                         LEARN MORE
                     </button>
                 </div>
             </div>
-
-            <!-- <div id="job-data">
-                <p>23 October 2023</p>
-                <p>HR Intern</p>
-                <p>Contract</p>
-                <div id="cd2-btndiv">
-                    <button>
-                        LEARN MORE
-                    </button>
-                </div>
-            </div>
-
-            <div id="job-data" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                <p>12 October 2023</p>
-                <p>Graduate Development Program</p>
-                <p>Contract</p>
-                <div id="cd2-btndiv">
-                    <button>
-                        LEARN MORE
-                    </button>
-                </div>
-            </div>
-
-            <div id="job-data">
-                <p>23 October 2023</p>
-                <p>Quality Assurance</p>
-                <p>Full Time</p>
-                <div id="cd2-btndiv">
-                    <button>
-                        LEARN MORE
-                    </button>
-                </div>
-            </div> -->
         </div>
 
         <div class="modal fade" id="exampleModal" aria-labelledby="exampleModalLabel" aria-hidden="true" tabindex="-1">
@@ -117,13 +85,6 @@
                             <div id="modal-req">
 
                             </div>
-                            <!-- <ul>
-                                <li>Bachelor Degree in IT/Computer Science or in related fields</li>
-                                <li>Have an interest in Programming and Coding or Data</li>
-                                <li>Good Communication and presentation skills</li>
-                                <li>Excellent problem solving skill</li>
-                                <li>Strong desire to learn about IT and have a strong commitment</li>
-                            </ul> -->
                         </div>
                     </div>
                     <div class="modal-footer">

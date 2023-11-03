@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: auto;
 }
 
 #profile-div1{
@@ -115,6 +114,7 @@
 
 #nav-skill-tab,#nav-exp-tab,#nav-cert-tab ,#nav-edu-tab{
     border: none;
+    outline: transparent;
 }
 
 #nav-skill-tab:focus{
@@ -128,6 +128,11 @@
 
 #nav-skill-tab:focus > i{
     color: #FFDA2D;
+    transition: 0.3s ease-in-out;
+}
+
+#nav-skill-tab:not(:focus) > i{
+    color: #666666;
     transition: 0.3s ease-in-out;
 }
 
@@ -145,12 +150,22 @@
     transition: 0.3s ease-in-out;
 }
 
+#nav-exp-tab:not(:focus) > i{
+    color: #666666;
+    transition: 0.3s ease-in-out;
+}
+
 #nav-edu-tab:focus{
     border-bottom: 3px #93C953 solid;
 }
 
 #nav-edu-tab:focus > i{
     color: #FF641A;
+    transition: 0.3s ease-in-out;
+}
+
+#nav-edu-tab:not(:focus) > i{
+    color: #666666;
     transition: 0.3s ease-in-out;
 }
 
@@ -163,25 +178,32 @@
     transition: 0.3s ease-in-out;
 }
 
+#nav-cert-tab:not(:focus) > i{
+    color: #666666;
+    transition: 0.3s ease-in-out;
+}
+
 #nav-tabContent{
     margin-top: -9px;
-    margin-bottom: 50px;
+    margin-bottom: 300px;
     width: 100%;
     border-top: 1px #93C953 solid;
-    height: fit-content;
 }
 
 #nav-skill{
     padding-top: 30px;
+    background: linear-gradient(#D5EABB, white);
+}
+
+#nav-skill-div{
     display: grid;
     grid-template-columns: auto auto auto;
     column-gap: 10%;
     row-gap: 30%;
     justify-content: center;
-    background: linear-gradient(#D5EABB, white);
 }
 
-#nav-skill > div{
+#nav-skill-content{
     display: flex;
     align-items: center;
     background-color: white;
@@ -195,9 +217,137 @@
     color: #666666;
 }
 
-#nav-skill > div > img{
+#nav-skill-content > img{
     margin-right: 10px;
     height: 50px;
     width: 50px;
     border-radius: 100%;
+}
+
+#nav-exp{
+    padding-top: 30px;
+    background: linear-gradient(#D5EABB, white);
+}
+
+#nav-exp-content{
+    background-color: white;
+    border: 1px #E4E5E6 solid;
+    width: 400px;
+    padding-left: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#nav-exp-content > p{
+    font-size: 15px;
+    font-weight: 600;
+    color: #999999;
+}
+
+#nav-exp-content > p:first-child{
+    font-size: 15px;
+    font-weight: 600;
+    color: #93C953;
+}
+
+#nav-exp-content > p:nth-child(2){
+    margin-top: -15px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+}
+
+#nav-exp-div{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10%;
+    row-gap: 30%;
+    justify-content: center;
+}
+
+#nav-edu{
+    padding-top: 30px;
+    justify-content: center;
+    background: linear-gradient(#D5EABB, white);
+}
+
+#nav-edu-content{
+    background-color: white;
+    border: 1px #E4E5E6 solid;
+    width: 400px;
+    padding-left: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#nav-edu-content > p{
+    font-size: 15px;
+    font-weight: 600;
+    color: #999999;
+}
+
+#nav-edu-content > p:first-child{
+    font-size: 15px;
+    font-weight: 600;
+    color: #93C953;
+}
+
+#nav-edu-content > p:nth-child(2){
+    margin-top: -15px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+}
+
+#nav-edu-div{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10%;
+    row-gap: 30%;
+    justify-content: center;
+}
+
+#nav-cert{
+    padding-top: 30px;
+    justify-content: center;
+    background: linear-gradient(#D5EABB, white);
+}
+
+#nav-cert-content{
+    background-color: white;
+    border: 1px #E4E5E6 solid;
+    width: 400px;
+    padding-left: 20px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+#nav-cert-content > p{
+    font-size: 15px;
+    font-weight: 600;
+    color: #999999;
+}
+
+#nav-cert-content > p:first-child{
+    font-size: 15px;
+    font-weight: 600;
+    color: #93C953;
+}
+
+#nav-cert-content > p:nth-child(2){
+    margin-top: -15px;
+    margin-bottom: 0px;
+    font-size: 24px;
+    font-weight: 600;
+    color: black;
+}
+
+#nav-cert-div{
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 10%;
+    row-gap: 30%;
+    justify-content: center;
 }
