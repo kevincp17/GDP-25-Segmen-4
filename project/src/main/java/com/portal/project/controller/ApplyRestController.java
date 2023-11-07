@@ -26,7 +26,7 @@ public class ApplyRestController {
     @Autowired
     private ApplyRepository applyRepository;
 
-    @GetMapping("apply")
+    @GetMapping("application")
     public ResponseEntity<Object> get() {
         List<Apply> data = applyRepository.findAll();
         if(data.isEmpty()) {
@@ -35,7 +35,7 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("apply")
+    @PostMapping("application")
     public ResponseEntity<Object> save(@RequestBody Apply apply) {
         applyRepository.save(apply);
         Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
@@ -46,7 +46,7 @@ public class ApplyRestController {
     }
 
     //getbyid
-    @GetMapping("apply/{id}")
+    @GetMapping("application/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
         Boolean result = applyRepository.findById(id).isPresent();
         if(result) {
@@ -57,7 +57,7 @@ public class ApplyRestController {
     }
 
     //delete
-    @DeleteMapping("apply/{id}")
+    @DeleteMapping("application/{id}")
     public ResponseEntity<Object> delete(@PathVariable(required = true) Integer id) {
         Boolean result = applyRepository.findById(id).isPresent();
         if(result) {

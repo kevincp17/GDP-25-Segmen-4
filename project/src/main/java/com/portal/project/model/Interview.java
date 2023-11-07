@@ -21,6 +21,7 @@ public class Interview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "interview_id")
     private Integer interview_id;
+    private String interview_name;
 
     @ManyToOne
     @JoinColumn(name = "job_id")
@@ -52,7 +53,17 @@ public class Interview {
 
     public void setCareer(Career career) {
         this.career = career;
+    }
+
+    public String getInterview_name() {
+        return interview_name;
+    }
+
+    public void setInterview_name(String interview_name) {
+        this.interview_name = interview_name;
     }    
+
+    
 
     
     

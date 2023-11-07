@@ -20,6 +20,7 @@ public class InterviewUser {
     private Integer interview_user_id;
     private Date interview_date;
     private String link;
+    private String status;
      
     @ManyToOne
     @JoinColumn(name = "interview_id")
@@ -93,6 +94,15 @@ public class InterviewUser {
         this.trainer = trainer;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    
     
     
     
