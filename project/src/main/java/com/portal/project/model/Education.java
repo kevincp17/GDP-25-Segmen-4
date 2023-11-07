@@ -21,7 +21,7 @@ public class Education {
     private Float gpa;
 
     @ManyToOne
-    @JoinColumn(name = "institue_id")
+    @JoinColumn(name = "institute_id")
     private Institute institute;
 
     @ManyToOne

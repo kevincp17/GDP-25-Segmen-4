@@ -10,17 +10,20 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
-@Table(name="tb_m_role")
+@Table(name = "tb_m_role")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "role_id")
+    @Column(name = "role_id")
     private Integer role_id;
     private String name;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy = "role")
-    public Set<User> users;
+    private Set<User> users;
 
     public Integer getRole_id() {
         return role_id;
@@ -45,7 +48,4 @@ public class Role {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
-
-    
-
 }
