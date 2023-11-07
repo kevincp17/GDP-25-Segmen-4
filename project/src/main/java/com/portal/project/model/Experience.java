@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_m_experience")
 public class Experience {
@@ -22,6 +24,7 @@ public class Experience {
     private Date start_date;
     private Date end_date;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "experience")
     public Set<Cv> cvs;
 

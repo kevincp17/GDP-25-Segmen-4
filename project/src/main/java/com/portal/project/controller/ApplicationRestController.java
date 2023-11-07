@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Apply;
 import com.portal.project.model.Cv;
-import com.portal.project.model.InterviewUser;
+// import com.portal.project.model.InterviewUser;
 import com.portal.project.repository.ApplyRepository;
 import com.portal.project.repository.CvRepository;
 

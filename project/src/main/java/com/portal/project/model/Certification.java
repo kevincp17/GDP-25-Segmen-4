@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_m_certification")
 public class Certification {
@@ -21,6 +23,7 @@ public class Certification {
     private String organizer_name;
     private Date issued_date;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "certification")
     public Set<Cv> cvs;
 

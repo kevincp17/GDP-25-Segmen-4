@@ -1,6 +1,7 @@
 package com.portal.project.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="tb_m_education")
@@ -19,6 +23,10 @@ public class Education {
     private Date start_date;
     private Date end_date;
     private Float gpa;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "education")
+    public Set<Cv> cvs;
 
     @ManyToOne
     @JoinColumn(name = "institute_id")
@@ -86,6 +94,14 @@ public class Education {
 
     public void setMajor(Major major) {
         this.major = major;
+    }
+
+    public Set<Cv> getCvs() {
+        return cvs;
+    }
+
+    public void setCvs(Set<Cv> cvs) {
+        this.cvs = cvs;
     }
     
 }

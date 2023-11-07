@@ -32,9 +32,9 @@ public class Career {
     private Date end_post_date;
     private Integer salary;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "career")
-    private Set<Interview> interviews;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "career")
+    // private Set<Interview> interviews;
 
     @JsonIgnore
     @OneToMany(mappedBy = "career")
@@ -100,12 +100,12 @@ public class Career {
     public void setApplies(Set<Apply> applies) {
         this.applies = applies;
     }
-    public Set<Interview> getInterviews() {
-        return interviews;
-    }
-    public void setInterviews(Set<Interview> interviews) {
-        this.interviews = interviews;
-    }
+    // public Set<Interview> getInterviews() {
+    //     return interviews;
+    // }
+    // public void setInterviews(Set<Interview> interviews) {
+    //     this.interviews = interviews;
+    // }
     
     
 }

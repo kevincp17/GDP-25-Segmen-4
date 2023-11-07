@@ -21,8 +21,8 @@ public class Cv {
     private String address;
     private String photo;
 
-    @OneToOne(mappedBy = "cv")
-    private User user;
+    // @OneToOne(mappedBy = "cv")
+    // private User user;
 
     @ManyToOne
     @JoinColumn(name = "skill_id")
@@ -112,12 +112,12 @@ public class Cv {
         this.certification = certification;
     }
 
-    public User getUser() {
-        return user;
-    }
+    // public User getUser() {
+    //     return user;
+    // }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public void setUser(User user) {
+    //     this.user = user;
+    // }
 
 }

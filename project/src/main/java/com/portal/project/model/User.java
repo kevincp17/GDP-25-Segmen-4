@@ -29,24 +29,24 @@ public class User {
     @JoinColumn(name = "role_id")
     private Role role;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "applicant")
-    private Set<InterviewUser> interviewApplicants;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "applicant")
+    // private Set<InterviewUser> interviewApplicants;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "ta")
-    private Set<InterviewUser> interviewTAs;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "ta")
+    // private Set<InterviewUser> interviewTAs;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "trainer")
-    private Set<InterviewUser> interviewTrainers;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "trainer")
+    // private Set<InterviewUser> interviewTrainers;
 
     @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     private Set<Apply> applies;
 
     @OneToOne
-    @JoinColumn(name = "cv_id")
+    @JoinColumn(name = "user_id")
     private Cv cv;
 
     public Integer getUser_id() {
@@ -81,29 +81,29 @@ public class User {
         this.role = role;
     }
 
-    public Set<InterviewUser> getInterviewApplicants() {
-        return interviewApplicants;
-    }
+    // public Set<InterviewUser> getInterviewApplicants() {
+    //     return interviewApplicants;
+    // }
 
-    public void setInterviewApplicants(Set<InterviewUser> interviewApplicants) {
-        this.interviewApplicants = interviewApplicants;
-    }
+    // public void setInterviewApplicants(Set<InterviewUser> interviewApplicants) {
+    //     this.interviewApplicants = interviewApplicants;
+    // }
 
-    public Set<InterviewUser> getInterviewTAs() {
-        return interviewTAs;
-    }
+    // public Set<InterviewUser> getInterviewTAs() {
+    //     return interviewTAs;
+    // }
 
-    public void setInterviewTAs(Set<InterviewUser> interviewTAs) {
-        this.interviewTAs = interviewTAs;
-    }
+    // public void setInterviewTAs(Set<InterviewUser> interviewTAs) {
+    //     this.interviewTAs = interviewTAs;
+    // }
 
-    public Set<InterviewUser> getInterviewTrainers() {
-        return interviewTrainers;
-    }
+    // public Set<InterviewUser> getInterviewTrainers() {
+    //     return interviewTrainers;
+    // }
 
-    public void setInterviewTrainers(Set<InterviewUser> interviewTrainers) {
-        this.interviewTrainers = interviewTrainers;
-    }
+    // public void setInterviewTrainers(Set<InterviewUser> interviewTrainers) {
+    //     this.interviewTrainers = interviewTrainers;
+    // }
 
     public Set<Apply> getApplies() {
         return applies;
@@ -111,6 +111,14 @@ public class User {
 
     public void setApplies(Set<Apply> applies) {
         this.applies = applies;
+    }
+
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
     }  
 
 }

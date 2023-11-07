@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_m_degree")
 public class Degree {
@@ -17,6 +19,7 @@ public class Degree {
     private Integer degree_id;
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "degree")
     public Set<Education> educations;
 

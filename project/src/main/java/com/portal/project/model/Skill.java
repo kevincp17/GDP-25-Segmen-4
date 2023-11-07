@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="tb_m_skill")
 public class Skill {
@@ -19,6 +21,7 @@ public class Skill {
     private Integer skill_id;
     private String name;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "skill")
     public Set<Cv> cvs;
 
