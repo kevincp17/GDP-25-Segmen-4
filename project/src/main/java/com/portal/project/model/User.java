@@ -1,5 +1,7 @@
 package com.portal.project.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -28,6 +31,10 @@ public class User {
     @JsonIgnore
     @OneToOne(mappedBy="user")
     private Cv cv;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "applicant")
+    public Set<User> applicant;
 
     public Integer getUser_id() {
         return user_id;
@@ -68,4 +75,14 @@ public class User {
     public void setCv(Cv cv) {
         this.cv = cv;
     }
+
+    public Set<User> getApplicant() {
+        return applicant;
+    }
+
+    public void setApplicant(Set<User> applicant) {
+        this.applicant = applicant;
+    }
+
+    
 }

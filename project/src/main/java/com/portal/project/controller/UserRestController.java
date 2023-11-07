@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portal.project.handle.CustomResponse;
+import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Career;
 import com.portal.project.model.User;
 import com.portal.project.repository.UserRepository;

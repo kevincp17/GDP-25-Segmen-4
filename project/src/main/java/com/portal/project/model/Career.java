@@ -1,15 +1,19 @@
 package com.portal.project.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_tr_job_vacancy")
@@ -28,6 +32,10 @@ public class Career {
     private Date end_post_date;
     private Integer salary;
     private String picture;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "career")
+    public Set<Career> career;
 
     public Integer getJob_id() {
         return job_id;
@@ -88,6 +96,12 @@ public class Career {
     }
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+    public Set<Career> getCareer() {
+        return career;
+    }
+    public void setCareer(Set<Career> career) {
+        this.career = career;
     }
 
     
