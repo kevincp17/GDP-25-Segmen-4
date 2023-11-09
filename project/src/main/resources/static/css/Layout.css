@@ -100,7 +100,6 @@ body{
 #profile-btn > img{
     height: 21px;
     width: 18px;
-    border-radius: 100%;
 }
 
 #profile-btn:hover > img{
