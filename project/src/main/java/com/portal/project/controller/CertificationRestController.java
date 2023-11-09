@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,13 +35,32 @@ public class CertificationRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("certification")
-    public ResponseEntity<Object> addCVSkill(@RequestBody Certification certification) {
+    // @PostMapping("certification")
+    // public ResponseEntity<Object> addCVSkill(@RequestBody Certification certification) {
+    //     certificationRepository.save(certification);
+    //     Boolean result = certificationRepository.findById(certification.getCertification_id()).isPresent();
+    //     if (result) {
+    //         return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",certificationRepository.findById(certification.getCertification_id()));
+    //     }
+    //     return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+    // }
+
+    @PostMapping(value = { "certification", "certification/{certId}" })
+    public ResponseEntity<Object> addCVSkill(@PathVariable(required = false) Integer certId,
+            @RequestBody Certification certification) {
         certificationRepository.save(certification);
         Boolean result = certificationRepository.findById(certification.getCertification_id()).isPresent();
-        if (result) {
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",certificationRepository.findById(certification.getCertification_id()));
+        if (certId!=null) {
+            if (result) {
+                return CustomResponse.generate(HttpStatus.OK, "data berhasil diupdate",
+                        certificationRepository.findById(certification.getCertification_id()));
+            }
+        } else {
+            if (result) {
+                return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",
+                        certificationRepository.findById(certification.getCertification_id()));
+            }
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil");
     }
 }

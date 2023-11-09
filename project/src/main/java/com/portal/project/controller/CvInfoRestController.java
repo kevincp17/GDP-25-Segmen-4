@@ -1,6 +1,7 @@
 package com.portal.project.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -108,9 +109,40 @@ public class CvInfoRestController {
     }
 
     @DeleteMapping("cvinfo/{cvId}/skill/{s_id}")
-    public ResponseEntity<Object> deleteSkillCertification(@PathVariable int cvId,@PathVariable int s_id) {
-        Boolean result=cvInfoRepository.DeleteSkillByCvID(cvId,s_id);
-        if(result){
+    public ResponseEntity<Object> deleteSkillCertification(@PathVariable int cvId,@PathVariable int s_id,@RequestBody CvInfo cvInfo) {
+        cvInfoRepository.delete(cvInfo);
+        Boolean result=cvInfoRepository.FindSkillByCvID(cvId,s_id).isPresent();
+        if(!result){
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil dihapus");
+    }
+
+    @DeleteMapping("cvinfo/{cvId}/experience/{expId}")
+    public ResponseEntity<Object> deleteExperience(@PathVariable int cvId,@PathVariable int expId,@RequestBody CvInfo cvInfo) {
+        cvInfoRepository.delete(cvInfo);
+        Boolean result=cvInfoRepository.FindExpByCvID(cvId,expId).isPresent();
+        if(!result){
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil dihapus");
+    }
+
+    @DeleteMapping("cvinfo/{cvId}/education/{eduId}")
+    public ResponseEntity<Object> deleteEducation(@PathVariable int cvId,@PathVariable int eduId,@RequestBody CvInfo cvInfo) {
+        cvInfoRepository.delete(cvInfo);
+        Boolean result=cvInfoRepository.FindEduByCvID(cvId,eduId).isPresent();
+        if(!result){
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil dihapus");
+    }
+
+    @DeleteMapping("cvinfo/{cvId}/certification/{certId}")
+    public ResponseEntity<Object> deleteCertification(@PathVariable int cvId,@PathVariable int certId,@RequestBody CvInfo cvInfo) {
+        cvInfoRepository.delete(cvInfo);
+        Boolean result=cvInfoRepository.FindCertByCvID(cvId,certId).isPresent();
+        if(!result){
             return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil dihapus");

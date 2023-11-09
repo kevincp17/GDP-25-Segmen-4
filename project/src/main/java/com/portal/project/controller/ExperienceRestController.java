@@ -35,13 +35,35 @@ public class ExperienceRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("experience")
-    public ResponseEntity<Object> addCVSkill(@RequestBody Experience experience) {
+    @PostMapping(value = { "experience", "experience/{expId}" })
+    public ResponseEntity<Object> addCVSkill(@PathVariable(required = false) Integer expId,
+            @RequestBody Experience experience) {
         experienceRepository.save(experience);
         Boolean result = experienceRepository.findById(experience.getExp_id()).isPresent();
-        if (result) {
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",experienceRepository.findById(experience.getExp_id()));
+        if (expId!=null) {
+            if (result) {
+                return CustomResponse.generate(HttpStatus.OK, "data berhasil diupdate",
+                        experienceRepository.findById(experience.getExp_id()));
+            }
+        } else {
+            if (result) {
+                return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",
+                        experienceRepository.findById(experience.getExp_id()));
+            }
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil");
     }
+
+    // @PostMapping("experience/{expId}")
+    // public ResponseEntity<Object> addCVSkill(@PathVariable int expId,@RequestBody
+    // Experience experience) {
+    // experienceRepository.save(experience);
+    // Boolean result=experienceRepository.findById(expId).isPresent();
+
+    // if(result){
+    // return CustomResponse.generate(HttpStatus.OK, "data berhasil diupdate");
+    // }
+    // return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil
+    // diupdate");
+    // }
 }

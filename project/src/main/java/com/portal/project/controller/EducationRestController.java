@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,14 +50,33 @@ public class EducationRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("education")
-    public ResponseEntity<Object> addCVSkill(@RequestBody Education education) {
+    // @PostMapping("education")
+    // public ResponseEntity<Object> addCVSkill(@RequestBody Education education) {
+    //     educationRepository.save(education);
+    //     Boolean result = educationRepository.findById(education.getEdu_id()).isPresent();
+    //     if (result) {
+    //         return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",educationRepository.findById(education.getEdu_id()));
+    //     }
+    //     return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+    // }
+
+    @PostMapping(value = { "education", "education/{eduId}" })
+    public ResponseEntity<Object> addCVSkill(@PathVariable(required = false) Integer eduId,
+            @RequestBody Education education) {
         educationRepository.save(education);
         Boolean result = educationRepository.findById(education.getEdu_id()).isPresent();
-        if (result) {
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",educationRepository.findById(education.getEdu_id()));
+        if (eduId!=null) {
+            if (result) {
+                return CustomResponse.generate(HttpStatus.OK, "data berhasil diupdate",
+                        educationRepository.findById(education.getEdu_id()));
+            }
+        } else {
+            if (result) {
+                return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",
+                        educationRepository.findById(education.getEdu_id()));
+            }
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil");
     }
 
     @GetMapping("education/major")

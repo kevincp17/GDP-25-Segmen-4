@@ -1,6 +1,7 @@
 package com.portal.project.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +26,26 @@ public interface CvInfoRepository extends JpaRepository<CvInfo,Integer>{
     public List<CvInfo> findCertificationByCvID(@Param("id") Integer id); 
 
     @Query(value = "DELETE FROM tb_tr_cv_info where cv_id=:cvId AND skill_id=:s_id",nativeQuery = true)
-    public Boolean DeleteSkillByCvID(@Param("cvId") Integer cvId,@Param("s_id") Integer s_id); 
+    public List<CvInfo> DeleteSkillByCvID(@Param("cvId") Integer cvId,@Param("s_id") Integer s_id); 
+
+    @Query(value = "select * from tb_tr_cv_info where cv_id=:cvId AND skill_id=:s_id",nativeQuery = true)
+    public Optional<CvInfo> FindSkillByCvID(@Param("cvId") Integer cvId,@Param("s_id") Integer s_id); 
+
+    @Query(value = "DELETE FROM tb_tr_cv_info where cv_id=:cvId AND exp_id=:expId",nativeQuery = true)
+    public List<CvInfo> DeleteExpByCvID(@Param("cvId") Integer cvId,@Param("expId") Integer expId); 
+
+    @Query(value = "select * from tb_tr_cv_info where cv_id=:cvId AND exp_id=:expId",nativeQuery = true)
+    public Optional<CvInfo> FindExpByCvID(@Param("cvId") Integer cvId,@Param("expId") Integer expId);
+    
+    @Query(value = "DELETE FROM tb_tr_cv_info where cv_id=:cvId AND edu_id=:eduId",nativeQuery = true)
+    public List<CvInfo> DeleteEduByCvID(@Param("cvId") Integer cvId,@Param("eduId") Integer eduId); 
+
+    @Query(value = "select * from tb_tr_cv_info where cv_id=:cvId AND edu_id=:eduId",nativeQuery = true)
+    public Optional<CvInfo> FindEduByCvID(@Param("cvId") Integer cvId,@Param("eduId") Integer eduId);
+
+    @Query(value = "DELETE FROM tb_tr_cv_info where cv_id=:cvId AND certification_id=:certId",nativeQuery = true)
+    public List<CvInfo> DeleteCertByCvID(@Param("cvId") Integer cvId,@Param("certId") Integer certId); 
+
+    @Query(value = "select * from tb_tr_cv_info where cv_id=:cvId AND certification_id=:certId",nativeQuery = true)
+    public Optional<CvInfo> FindCertByCvID(@Param("cvId") Integer cvId,@Param("certId") Integer certId);
 }
