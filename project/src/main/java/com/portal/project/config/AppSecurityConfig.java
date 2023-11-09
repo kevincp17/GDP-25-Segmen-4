@@ -44,6 +44,7 @@ public class AppSecurityConfig {
                 auth
                 .antMatchers("/api/**").permitAll()
                 .antMatchers("/register/**").permitAll()
+                .antMatchers("/application").permitAll()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

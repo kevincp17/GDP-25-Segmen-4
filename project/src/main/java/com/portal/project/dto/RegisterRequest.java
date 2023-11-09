@@ -11,7 +11,6 @@ public class RegisterRequest {
     private String phone;
     private String address;
     private Role role;
-    private User user;
     // private String photo;
 
     // public String getPhoto() {
@@ -26,7 +25,7 @@ public class RegisterRequest {
 
     }
 
-    public RegisterRequest(Integer user_id, String name, String email, String password, String phone, String address, Role role, User user) {
+    public RegisterRequest(Integer user_id, String name, String email, String password, String phone, String address, Role role) {
         this.user_id = user_id;
         this.name = name;
         this.email = email;
@@ -34,7 +33,6 @@ public class RegisterRequest {
         this.phone = phone;
         this.address = address;
         this.role = role;
-        this.user = user;
     }
 
     public Integer getUser_id() {
@@ -92,14 +90,5 @@ public class RegisterRequest {
     public void setAddress(String address) {
         this.address = address;
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-    
     
 }

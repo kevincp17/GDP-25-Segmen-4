@@ -17,14 +17,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Skill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "skill_id")
+    // @Column(name = "skill_id")
     private Integer skill_id;
     private String name;
-    private String picture;
 
     @JsonIgnore
     @OneToMany(mappedBy = "skill")
-    public Set<CvInfo> cvInfos;
+    public Set<Cv> cvs;
 
     public Integer getSkill_id() {
         return skill_id;
@@ -42,22 +41,12 @@ public class Skill {
         this.name = name;
     }
 
-    public Set<CvInfo> getCvInfos() {
-        return cvInfos;
+    public Set<Cv> getCvs() {
+        return cvs;
     }
 
-    public void setCvInfos(Set<CvInfo> cvInfos) {
-        this.cvInfos = cvInfos;
+    public void setCvs(Set<Cv> cvs) {
+        this.cvs = cvs;
     }
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    
     
 }

@@ -16,17 +16,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Apply;
+import com.portal.project.model.Cv;
 // import com.portal.project.model.InterviewUser;
 import com.portal.project.repository.ApplyRepository;
+import com.portal.project.repository.CvRepository;
 
 @RestController
 @RequestMapping("api")
 @CrossOrigin
-public class ApplyRestController {
+public class ApplicationRestController {
     @Autowired
     private ApplyRepository applyRepository;
 
-    @GetMapping("apply")
+    @GetMapping("application")
     public ResponseEntity<Object> get() {
         List<Apply> data = applyRepository.findAll();
         if(data.isEmpty()) {
@@ -35,37 +37,15 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("apply")
-    public ResponseEntity<Object> save(@RequestBody Apply apply) {
-        applyRepository.save(apply);
-        Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
-        if(result) {
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
-        }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
-    }
-
-    //getbyid
-    @GetMapping("apply/{id}")
-    public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
-        Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
-        if(!result) {
-            List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
-            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
-        }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
-    }
-
-    //delete
-    @DeleteMapping("apply/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(required = true) Integer id) {
+    @PostMapping("application/{id}")
+    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id){
         Boolean result = applyRepository.findById(id).isPresent();
-        if(result) {
-            applyRepository.deleteById(id);
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
+        if(result){
+            Apply newApply = applyRepository.findById(id).orElse(null);
+            newApply.setStatus(apply.getStatus());
+            applyRepository.save(newApply);
+            return CustomResponse.generate(HttpStatus.OK, "berhasil menyimpan data");
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil dihapus");
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "tidak berhasil menyimpan data");
     }
-    
-
 }

@@ -31,11 +31,14 @@ public class Career {
     private Date start_post_date;
     private Date end_post_date;
     private Integer salary;
-    private String picture;
+
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "career")
+    // private Set<Interview> interviews;
 
     @JsonIgnore
     @OneToMany(mappedBy = "career")
-    public Set<Career> career;
+    private Set<Apply> applies;
 
     public Integer getJob_id() {
         return job_id;
@@ -91,18 +94,18 @@ public class Career {
     public void setSalary(Integer salary) {
         this.salary = salary;
     }
-    public String getPicture() {
-        return picture;
+    public Set<Apply> getApplies() {
+        return applies;
     }
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setApplies(Set<Apply> applies) {
+        this.applies = applies;
     }
-    public Set<Career> getCareer() {
-        return career;
-    }
-    public void setCareer(Set<Career> career) {
-        this.career = career;
-    }
-
+    // public Set<Interview> getInterviews() {
+    //     return interviews;
+    // }
+    // public void setInterviews(Set<Interview> interviews) {
+    //     this.interviews = interviews;
+    // }
+    
     
 }
