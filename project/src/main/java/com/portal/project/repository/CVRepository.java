@@ -17,4 +17,5 @@ public interface CvRepository extends JpaRepository<Cv,Integer>{
     @Query(value="select *\n"+
     "from tb_m_cv cv JOIN tb_m_user u ON cv.user_id=u.user_id where cv.user_id=:id",nativeQuery = true)
     public Cv findCVByUserId(@Param("id") Integer id);
+    
 }
