@@ -1,4 +1,4 @@
-// package com.portal.project.model;
+package com.portal.project.model;
 
 import java.util.Set;
 
