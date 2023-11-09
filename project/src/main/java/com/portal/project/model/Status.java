@@ -25,9 +25,17 @@ public class Status {
     @OneToMany(mappedBy = "status")
     private Set<Apply> applies;
 
-    // @JsonIgnore
-    // @OneToMany(mappedBy = "status")
-    // private Set<InterviewUser> interviewUsers;
+    @JsonIgnore
+    @OneToMany(mappedBy = "status")
+    private Set<InterviewUser> interviewUsers;
+
+    public Set<InterviewUser> getInterviewUsers() {
+        return interviewUsers;
+    }
+
+    public void setInterviewUsers(Set<InterviewUser> interviewUsers) {
+        this.interviewUsers = interviewUsers;
+    }
 
     public Integer getStatus_id() {
         return status_id;
