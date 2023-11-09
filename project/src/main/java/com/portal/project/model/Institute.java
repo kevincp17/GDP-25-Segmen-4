@@ -2,6 +2,7 @@ package com.portal.project.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,12 +17,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Institute {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "institute_id")
     private Integer institute_id;
     private String name;
 
     @JsonIgnore
     @OneToMany(mappedBy = "institute")
     public Set<Education> educations;
+
 
     public Integer getInstitute_id() {
         return institute_id;

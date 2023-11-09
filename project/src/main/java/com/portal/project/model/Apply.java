@@ -41,14 +41,6 @@ public class Apply {
         this.apply_id = apply_id;
     }
 
-    // public String getStatus() {
-    //     return status;
-    // }
-
-    // public void setStatus(String status) {
-    //     this.status = status;
-    // }
-
     public Date getDate() {
         return date;
     }

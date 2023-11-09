@@ -2,6 +2,7 @@ package com.portal.project.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Major {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "major_id")
     private Integer major_id;
     private String name;
 

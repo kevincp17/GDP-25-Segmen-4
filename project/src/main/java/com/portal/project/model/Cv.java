@@ -1,44 +1,43 @@
 package com.portal.project.model;
 
+import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name="tb_m_cv")
 public class Cv {
     @Id
-    // @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // @Column(name = "cv_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cv_id")
     private Integer cv_id;
-    private String name;
-    private String phone;
-    private String address;
-    private String photo;
-
-    // @OneToOne(mappedBy = "cv")
+    private String name; 
+    private String phone; 
+    private String address; 
+    private String photo; 
+    
+    // @OneToOne
+    // @JoinColumn(name="user_id")
     // private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "skill_id")
-    private Skill skill;
-
-    @ManyToOne
-    @JoinColumn(name = "exp_id")
-    private Experience experience;
-
-    @ManyToOne
-    @JoinColumn(name = "edu_id")
-    private Education education;
-
-    @ManyToOne
-    @JoinColumn(name = "certification_id")
-    private Certification certification;
+    @OneToOne
+    @JoinColumn(name="user_id")
+    private User user;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="cv")
+    public Set<CvInfo> cvInfos;
 
     public Integer getCv_id() {
         return cv_id;
@@ -80,44 +79,21 @@ public class Cv {
         this.photo = photo;
     }
 
-    public Skill getSkill() {
-        return skill;
+    public User getUser() {
+        return user;
     }
 
-    public void setSkill(Skill skill) {
-        this.skill = skill;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Experience getExperience() {
-        return experience;
+    public Set<CvInfo> getCvInfos() {
+        return cvInfos;
     }
 
-    public void setExperience(Experience experience) {
-        this.experience = experience;
+    public void setCvInfos(Set<CvInfo> cvInfos) {
+        this.cvInfos = cvInfos;
     }
 
-    public Education getEducation() {
-        return education;
-    }
-
-    public void setEducation(Education education) {
-        this.education = education;
-    }
-
-    public Certification getCertification() {
-        return certification;
-    }
-
-    public void setCertification(Certification certification) {
-        this.certification = certification;
-    }
-
-    // public User getUser() {
-    //     return user;
-    // }
-
-    // public void setUser(User user) {
-    //     this.user = user;
-    // }
-
+    
 }

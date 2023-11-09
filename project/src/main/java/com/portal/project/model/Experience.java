@@ -3,6 +3,7 @@ package com.portal.project.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Experience {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "exp_id")
     private Integer exp_id;
     private String company_name;
     private String job_title;
@@ -26,7 +28,7 @@ public class Experience {
 
     @JsonIgnore
     @OneToMany(mappedBy = "experience")
-    public Set<Cv> cvs;
+    public Set<CvInfo> cvInfos;
 
     public Integer getExp_id() {
         return exp_id;
@@ -76,13 +78,12 @@ public class Experience {
         this.end_date = end_date;
     }
 
-    public Set<Cv> getCvs() {
-        return cvs;
+    public Set<CvInfo> getCvInfos() {
+        return cvInfos;
     }
 
-    public void setCvs(Set<Cv> cvs) {
-        this.cvs = cvs;
+    public void setCvInfos(Set<CvInfo> cvInfos) {
+        this.cvInfos = cvInfos;
     }
 
-    
 }
