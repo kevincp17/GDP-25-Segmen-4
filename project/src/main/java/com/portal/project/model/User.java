@@ -25,9 +25,6 @@ public class User {
     private String email;
     private String password;
     
-    @ManyToOne
-    @JoinColumn(name="role_id")
-    private Role role;
     @JsonIgnore
     @OneToOne(mappedBy="user")
     private Cv cv;
@@ -35,6 +32,26 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     public Set<User> applicant;
+
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    private Role role;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "applicant")
+    private Set<InterviewUser> interviewApplicants;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ta")
+    private Set<InterviewUser> interviewTAs;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "trainer")
+    private Set<InterviewUser> interviewTrainers;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "applicant")
+    private Set<Apply> applies;
 
     public Integer getUser_id() {
         return user_id;
@@ -85,4 +102,36 @@ public class User {
     }
 
     
+    public Set<InterviewUser> getInterviewApplicants() {
+        return interviewApplicants;
+    }
+
+    public void setInterviewApplicants(Set<InterviewUser> interviewApplicants) {
+        this.interviewApplicants = interviewApplicants;
+    }
+
+    public Set<InterviewUser> getInterviewTAs() {
+        return interviewTAs;
+    }
+
+    public void setInterviewTAs(Set<InterviewUser> interviewTAs) {
+        this.interviewTAs = interviewTAs;
+    }
+
+    public Set<InterviewUser> getInterviewTrainers() {
+        return interviewTrainers;
+    }
+
+    public void setInterviewTrainers(Set<InterviewUser> interviewTrainers) {
+        this.interviewTrainers = interviewTrainers;
+    }
+
+    public Set<Apply> getApplies() {
+        return applies;
+    }
+
+    public void setApplies(Set<Apply> applies) {
+        this.applies = applies;
+    }  
+
 }

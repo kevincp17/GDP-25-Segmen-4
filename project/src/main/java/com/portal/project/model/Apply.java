@@ -29,6 +29,10 @@ public class Apply {
     @JoinColumn(name = "user_id")
     private User applicant;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
     public Integer getApply_id() {
         return apply_id;
     }
@@ -69,5 +73,16 @@ public class Apply {
         this.applicant = applicant;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
     
+    
+
+
 }

@@ -1,0 +1,136 @@
+#apply-div{
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(#EEF2F8, white);
+}
+
+#apply-div2{
+    justify-items: center;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    padding: 120px 20px 80px 20px;
+}
+
+#apply-div2 > div{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px #E4E5E6 solid;
+    border-radius: 10px;
+    background-color: #F9F9FA;
+    width: 480px;
+    height: 230px;
+}
+
+#apply-div2 > div > p{
+    margin-top: -5px;
+}
+
+#apply-div2 > div > p:first-child{
+    color:black;
+    font-weight: 600;
+    font-size: 23px;
+    flex-basis: 20%;
+    margin-top: -17px;
+    margin-bottom: 5px;
+}
+
+#apply-div2 > div > p:nth-child(2){
+    color:black;
+    font-weight: 600;
+    flex-basis: 10%;
+    font-size: 14px;
+}
+
+#apply-div2 > div > p:last-child{
+    color:#B4B5B6;
+    font-weight: 600;
+    flex-basis: 20%;
+    margin-top: -20px;
+}
+
+#apply-div2 > div:hover{
+    background-color: white;
+    box-shadow: 0px 0px 10px -3px rgb(0 0 0 / 0.1), 
+    0px 0px 10px -3px rgb(0 0 0 / 0.1),
+    0px 0px 10px -3px rgb(0 0 0 / 0.1), 
+    0px 0px 10px -3px rgb(0 0 0 / 0.1);
+    transition: 0.5s ease-in-out;
+}
+
+#apply-div2 > div:not(:hover){
+    background-color: #F9F9FA;
+    transition: 0.5s ease-in-out;
+}
+
+#apply-div2 > div:hover >p:last-child{
+    color: #999999;
+    transition: 0.5s ease-in-out;
+}
+
+#apply-div2 > div:not(:hover) >p:last-child{
+    color: #B7B7B7;
+    transition: 0.5s ease-in-out;
+}
+
+#cd2-btndiv{
+    display: flex;
+    flex-basis: 50%;
+    align-items: flex-end;
+}
+
+#cd2-btndiv > button{
+    background-color: transparent;
+    color:transparent;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    width:130px;
+    height: 35px;
+    border: 1px transparent solid;
+    border-radius: 20px;
+    font-size: 13px;
+    margin-top: 30px;
+}
+
+#apply-div2 > div:hover > #cd2-btndiv > button{
+    background-color: #0D5A9A;
+    color:white;
+    transition: 0.3s ease-in-out;
+}
+
+#apply-div2 > div:not(:hover) > #cd2-btndiv > button{
+    background-color: transparent;
+    color:transparent;
+    transition: 0.3s ease-in-out;
+}
+
+#apply-div2 > div:hover > #cd2-btndiv > button:hover{
+    background-color: #3D7BAE;
+    transition: 0.3s ease-in-out;
+}
+
+#apply-div2 > div:hover > #cd2-btndiv > button:not(:hover){
+    background-color: #0D5A9A;
+    transition: 0.3s ease-in-out;
+}
+
+.modal-header > div{
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-header > div > p:last-child{
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    color: #333333;
+}
+
+.modal-body {
+    display: flex;
+}
+
+ul {
+    display: flex;
+    margin-top: 30px;
+}
