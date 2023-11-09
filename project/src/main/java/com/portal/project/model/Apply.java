@@ -18,7 +18,6 @@ public class Apply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "apply_id")
     private Integer apply_id;
-    private String status;
     private Date date;
 
     @ManyToOne
@@ -29,20 +28,16 @@ public class Apply {
     @JoinColumn(name = "user_id")
     private User applicant;
 
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
     public Integer getApply_id() {
         return apply_id;
     }
 
     public void setApply_id(Integer apply_id) {
         this.apply_id = apply_id;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Date getDate() {
@@ -69,6 +64,15 @@ public class Apply {
         this.applicant = applicant;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    
     
 
 

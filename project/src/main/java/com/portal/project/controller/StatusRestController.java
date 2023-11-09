@@ -11,21 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.project.handler.CustomResponse;
-import com.portal.project.model.Interview;
+import com.portal.project.model.InterviewUser;
 import com.portal.project.model.Status;
-import com.portal.project.repository.InterviewRepository;
+import com.portal.project.repository.InterviewUserRepository;
 import com.portal.project.repository.StatusRepository;
 
 @RestController
 @RequestMapping("api")
 @CrossOrigin
-public class InterviewRestController {
+public class StatusRestController {
     @Autowired
-    private InterviewRepository interviewRepository;
+    private StatusRepository statusRepository;
 
-    @GetMapping("interview")
+    @GetMapping("status")
     public ResponseEntity<Object> get() {
-        List<Interview> data = interviewRepository.findAll();
+        List<Status> data = statusRepository.findAll();
         if (data.isEmpty()) {
             return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan");
         }

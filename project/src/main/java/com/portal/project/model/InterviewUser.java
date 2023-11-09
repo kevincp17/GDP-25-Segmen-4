@@ -20,7 +20,6 @@ public class InterviewUser {
     private Integer interview_user_id;
     private Date interview_date;
     private String link;
-    private String status;
      
     @ManyToOne
     @JoinColumn(name = "interview_id")
@@ -37,6 +36,10 @@ public class InterviewUser {
     @ManyToOne
     @JoinColumn(name = "trainer_id", referencedColumnName = "user_id")
     private User trainer;
+
+    @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
 
     public Integer getInterview_user_id() {
         return interview_user_id;
@@ -94,13 +97,15 @@ public class InterviewUser {
         this.trainer = trainer;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
+
+    
 
     
     
