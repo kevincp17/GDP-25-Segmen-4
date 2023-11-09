@@ -31,10 +31,6 @@ public class Cv {
     // @JoinColumn(name="user_id")
     // private User user;
 
-    @OneToOne
-    @JoinColumn(name="user_id")
-    private User user;
-    
     @JsonIgnore
     @OneToMany(mappedBy="cv")
     public Set<CvInfo> cvInfos;
@@ -79,13 +75,13 @@ public class Cv {
         this.photo = photo;
     }
 
-    public User getUser() {
-        return user;
-    }
+    // public User getUser() {
+    //     return user;
+    // }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public void setUser(User user) {
+    //     this.user = user;
+    // }
 
     public Set<CvInfo> getCvInfos() {
         return cvInfos;

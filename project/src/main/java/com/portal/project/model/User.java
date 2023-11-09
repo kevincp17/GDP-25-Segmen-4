@@ -29,12 +29,8 @@ public class User {
     @JoinColumn(name="role_id")
     private Role role;
 
-    // @OneToOne
-    // @JoinColumn(name = "user_id")
-    // private Cv cv;
-
-    @JsonIgnore
-    @OneToOne(mappedBy="user")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private Cv cv;
 
     @JsonIgnore
@@ -89,5 +85,4 @@ public class User {
         this.applicant = applicant;
     }
 
-    
 }
