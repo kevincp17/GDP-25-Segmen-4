@@ -10,9 +10,11 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.FileCopyUtils;
 
 import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Apply;
@@ -28,6 +32,7 @@ import com.portal.project.model.Cv;
 // import com.portal.project.model.InterviewUser;
 import com.portal.project.repository.ApplyRepository;
 import com.portal.project.repository.CvRepository;
+
 
 @RestController
 @RequestMapping("api")
@@ -70,11 +75,11 @@ public class ApplicationRestController {
             Integer status = newApply.getStatus().getStatus_id();
 
             if (status == 5) {
-                String htmlContent = "accepted";
+                String htmlContent = "<p>accepted</p>";
                 message.setContent(htmlContent, "text/html; charset=utf-8");
                 mailSender.send(message);
-            } else if (status == 6) {
-                String htmlContent = "rejected";
+            } if (status == 6) {
+                String htmlContent = "<p>rejected</p>";
                 message.setContent(htmlContent, "text/html; charset=utf-8");
                 mailSender.send(message);
             }
