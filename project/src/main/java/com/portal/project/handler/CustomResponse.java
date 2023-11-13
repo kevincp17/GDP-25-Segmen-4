@@ -13,7 +13,7 @@ public class CustomResponse {
         Map<String, Object> map = new HashMap<>(); //pakai object biar bisa menampung tipe data yang berbeda2
         map.put("statusCode", httpStatus);
         map.put("message", message);
-        map.put("results", data);
+        map.put("result", data);
         return new ResponseEntity<Object>(map, httpStatus);
     }
 
