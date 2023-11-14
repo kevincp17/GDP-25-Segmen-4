@@ -24,7 +24,7 @@ public class User {
     private Integer user_id;
     private String email;
     private String password;
-    
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private Cv cv;

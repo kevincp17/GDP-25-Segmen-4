@@ -35,15 +35,15 @@ public class Career {
 
     @JsonIgnore
     @OneToMany(mappedBy = "career")
-    public Set<Career> career;
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "career")
     private Set<Interview> interviews;
 
     @JsonIgnore
     @OneToMany(mappedBy = "career")
     private Set<Apply> applies;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "career")
+    private Set<Career> career;
 
     public Integer getJob_id() {
         return job_id;
@@ -124,6 +124,7 @@ public class Career {
     public void setInterviews(Set<Interview> interviews) {
         this.interviews = interviews;
     }
+    
     
     
 }

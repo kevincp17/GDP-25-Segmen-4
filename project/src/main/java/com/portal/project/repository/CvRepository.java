@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.portal.project.model.Cv;
 
 @Repository
-public interface CVRepository extends JpaRepository<Cv,Integer>{
+public interface CvRepository extends JpaRepository<Cv,Integer>{
     // @Query(value = "select*from tb_m_cv cv,tb_m_user u where cv.user_id=:id",nativeQuery = true)
     // public List<Cv> findCvByUserId(@Param("id") Integer id);
 

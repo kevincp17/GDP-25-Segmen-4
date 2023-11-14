@@ -59,7 +59,6 @@ public class JwtTokenUtil implements Serializable {
 	public String generateToken(UserDetails userDetails) {
 		Map<String, Object> claims = new HashMap<>();
 		Collection<? extends GrantedAuthority> roles = userDetails.getAuthorities();
-		System.out.println("ini role"+roles);
 		if (roles.contains(new SimpleGrantedAuthority("TA"))) {
 			claims.put("role", "TA");
 		}
