@@ -18,6 +18,7 @@ public class Apply {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "apply_id")
     private Integer apply_id;
+    // private String status;
     private Date date;
 
     @ManyToOne
@@ -25,12 +26,16 @@ public class Apply {
     private Career career;
 
     @ManyToOne
+    @JoinColumn(name = "status_id")
+    private Status status;
+
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User applicant;
 
-    @ManyToOne
-    @JoinColumn(name = "status_id")
-    private Status status;
+    // @ManyToOne
+    // @JoinColumn(name = "status_id")
+    // private Status status;
 
     public Integer getApply_id() {
         return apply_id;

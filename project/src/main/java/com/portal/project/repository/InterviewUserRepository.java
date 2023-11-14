@@ -22,8 +22,8 @@ public interface InterviewUserRepository extends JpaRepository<InterviewUser, In
     public String findLinkById(Integer id);
 
     @Query(value = "SELECT * FROM tb_tr_interview_user where applicant_id= ?1",nativeQuery = true)
-    public List<InterviewUser> findApplicantByUserID(@Param("id") Integer id);
+    public List<InterviewUser> findApplicantByUserID(Integer id);
     
     @Query(value = "SELECT * FROM tb_tr_interview_user where trainer_id= ?1",nativeQuery = true)
-    public List<InterviewUser> findTrainerByUserID(@Param("id") Integer id);
+    public List<InterviewUser> findTrainerByUserID(Integer id);
 }
