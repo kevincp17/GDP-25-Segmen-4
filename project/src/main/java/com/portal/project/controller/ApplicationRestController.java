@@ -33,7 +33,6 @@ import com.portal.project.model.Cv;
 import com.portal.project.repository.ApplyRepository;
 import com.portal.project.repository.CvRepository;
 
-
 @RestController
 @RequestMapping("api")
 @CrossOrigin
@@ -67,6 +66,7 @@ public class ApplicationRestController {
             MimeMessage message = mailSender.createMimeMessage();
 
             String job = newApply.getCareer().getTitle();
+            String name = newApply.getApplicant().getCv().getName();
 
             message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
             message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
@@ -75,11 +75,35 @@ public class ApplicationRestController {
             Integer status = newApply.getStatus().getStatus_id();
 
             if (status == 5) {
-                String htmlContent = "<p>accepted</p>";
+                String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
+
+                        "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to offer you the position of <b>"
+                        + job + "<b>.</p>" +
+                        "<p style=\"color:black;\">The following is <b>Offering Letter</b>, <b>Employee Master Form</b>, and <b>Joining Sheet</b> as documents that must be completed. With this e-mail, I sent you the Offering Letter for the finalization of this process. Please download it and read it carefully.</p>"
+                        +
+                        "<p style=\"color:black;\"><b>Kindly sign digital offering letter and send it back in PDF</b></p>"
+                        +
+                        "<p style=\"color:black;\"><b>Pay attention to points 1 to 12 on joining sheet and send it back in zip or rar.</b></p>"
+                        +
+                        "<p style=\"color:black;\">If you have any questions, do not hesitate to contact me on WhatsApp.</p>"
+                        +
+                        "<p style=\"color:black;\">Thanks & Regards,</p>" +
+                        "<p style=\"color:black;\">Talent Acquisition • PT. Bumi Amartha Teknologi Mandiri</p>";
                 message.setContent(htmlContent, "text/html; charset=utf-8");
                 mailSender.send(message);
-            } if (status == 6) {
-                String htmlContent = "<p>rejected</p>";
+            }
+            if (status == 6) {
+                String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
+                        "<p style=\"color:black;\">Thank you for your interest in the "+job+" role at Amartek. We appreciate the time and effort you invested in applying for this position.</p>" +
+                        "<p style=\"color:black;\">After careful consideration, we have decided not to move forward with your application at this time. We received a significant number of applications from qualified candidates like yourself, making this selection process extremely difficult.</p>"
+                        +
+                        "<p style=\"color:black;\">If you have any feedback for us about our application process, we welcome your input as it helps us learn and improve!</p>"
+                        +
+                        "<p style=\"color:black;\">We sincerely appreciate your interest in " + job
+                        + " and wish you all the best in your job search.</p>"
+                        +
+                        "<p style=\"color:black;\">Thanks & Regards,</p>" +
+                        "<p style=\"color:black;\">Talent Acquisition • PT. Bumi Amartha Teknologi Mandiri</p>";
                 message.setContent(htmlContent, "text/html; charset=utf-8");
                 mailSender.send(message);
             }
