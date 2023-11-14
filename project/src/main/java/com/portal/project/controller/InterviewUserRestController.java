@@ -114,7 +114,7 @@ public class InterviewUserRestController {
                     messageTA.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
                     String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
                             "<hr>" +
-                            "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
+                            "<p style=\"color:black;\">You are invited for Online Interview HR at:</p>" +
                             "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
                             "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
                             "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
