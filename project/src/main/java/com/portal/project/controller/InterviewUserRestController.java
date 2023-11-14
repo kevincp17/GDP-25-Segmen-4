@@ -29,7 +29,7 @@ import com.portal.project.model.Interview;
 import com.portal.project.model.InterviewUser;
 import com.portal.project.model.Status;
 import com.portal.project.model.User;
-import com.portal.project.repository.CVRepository;
+import com.portal.project.repository.CvRepository;
 import com.portal.project.repository.InterviewRepository;
 import com.portal.project.repository.InterviewUserRepository;
 import com.portal.project.repository.RoleRepository;
@@ -56,7 +56,7 @@ public class InterviewUserRestController {
     private StatusRepository statusRepository;
 
     @Autowired
-    private CVRepository cvRepository;
+    private CvRepository cvRepository;
 
     @Autowired
     private RoleRepository roleRepository;

@@ -19,7 +19,6 @@ import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Cv;
 import com.portal.project.model.CvInfo;
 import com.portal.project.repository.CvInfoRepository;
-import com.portal.project.repository.CVRepository;
 
 @CrossOrigin
 @RestController

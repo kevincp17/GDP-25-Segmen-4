@@ -45,18 +45,6 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("apply/{id}")
-    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id){
-        Boolean result = applyRepository.findById(id).isPresent();
-        if(result){
-            Apply newApply = applyRepository.findById(id).orElse(null);
-            newApply.setStatus(apply.getStatus());
-            applyRepository.save(newApply);
-            return CustomResponse.generate(HttpStatus.OK, "berhasil menyimpan data");
-        }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "tidak berhasil menyimpan data");
-    }
-
         @PostMapping("apply/{id}")
     public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id)
             throws AddressException, MessagingException {
