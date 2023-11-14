@@ -72,123 +72,123 @@ public class InterviewUserRestController {
 
     @PostMapping("interviews")
     public ResponseEntity<Object> save(@RequestBody InterviewUser interviewUser)
-            throws AddressException, MessagingException {
-        interviewRepository.save(interviewUser.getInterview());
-        Boolean result = interviewRepository.existsById(interviewUser.getInterview().getInterview_id());
-        if (result) {
-            interviewUserRepository.save(interviewUser);
-            Boolean result2 = interviewUserRepository.existsById(interviewUser.getInterview_user_id());
+    throws AddressException, MessagingException {
+interviewRepository.save(interviewUser.getInterview());
+Boolean result = interviewRepository.existsById(interviewUser.getInterview().getInterview_id());
+if (result) {
+    interviewUserRepository.save(interviewUser);
+    Boolean result2 = interviewUserRepository.existsById(interviewUser.getInterview_user_id());
 
-            if (result2) {
-                LocalDateTime now = LocalDateTime.now();
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
+    if (result2) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
 
-                // MimeMessage message = mailSender.createMimeMessage();
-                // message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-                // String emailApplicant =
-                // userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
-                // String emailTrainer =
-                // userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
-                // message.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
-                // message.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
-                // message.setSubject("[" + dtf.format(now) + "]" + " Invitation Online
-                // Interview");
+        // MimeMessage message = mailSender.createMimeMessage();
+        // message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+        // String emailApplicant =
+        // userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+        // String emailTrainer =
+        // userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
+        // message.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+        // message.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
+        // message.setSubject("[" + dtf.format(now) + "]" + " Invitation Online
+        // Interview");
 
-                Integer status = statusRepository.findStatusById(interviewUser.getStatus().getStatus_id());
+        Integer status = statusRepository.findStatusById(interviewUser.getStatus().getStatus_id());
 
-                // Integer roleApplicant =
-                // userRepository.findRoleById(interviewUser.getApplicant().getUser_id());
-                // Integer roleTrainer =
-                // userRepository.findRoleById(interviewUser.getTrainer().getUser_id());
+        // Integer roleApplicant =
+        // userRepository.findRoleById(interviewUser.getApplicant().getUser_id());
+        // Integer roleTrainer =
+        // userRepository.findRoleById(interviewUser.getTrainer().getUser_id());
 
-                if (status == 2) {
-                    String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
-                    String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
-                    String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
-                    String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
+        if (status == 2) {
+            String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getCv().getCv_id());
+            String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
+            String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
+            String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
 
-                    MimeMessage messageTA = mailSender.createMimeMessage();
-                    messageTA.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-                    String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
-                    messageTA.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
-                    messageTA.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
-                    String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">You are invited for Online Interview HR at:</p>" +
-                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
-                            "<a href='" + link + "'></a>" +
-                            "<p><b>Terms & Condition</b></p>" +
-                            "<ul>" +
-                            "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
-                            "<li>Ontime  : Please attend 10 minutes early</li>" +
-                            "<li>Preparation : Prepare your laptop/ phone and internet also make sure the internet is stable.</li>"
-                            +
-                            "</ul>" +
-                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
-                    messageTA.setContent(htmlContent, "text/html; charset=utf-8");
-                    mailSender.send(messageTA);
-                }
-                if (status == 3) {
-                    String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
-                    String nameTrainer = cvRepository.findNameById(interviewUser.getTrainer().getUser_id());
-                    String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
-                    String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
-                    String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
-
-                    MimeMessage message1 = mailSender.createMimeMessage();
-                    message1.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-                    String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
-                    message1.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
-                    message1.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
-                    String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
-                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
-                            "<a href='" + link + "'></a>" +
-                            "<p><b>Terms & Condition</b></p>" +
-                            "<ul>" +
-                            "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
-                            "<li>Ontime  : Please attend 10 minutes early</li>" +
-                            "<li>Preparation : Prepare your laptop/ phone and internet also make sure the internet is stable.</li>"
-                            +
-                            "</ul>" +
-                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
-                    message1.setContent(htmlContent, "text/html; charset=utf-8");
-                    mailSender.send(message1);
-
-                    MimeMessage message2 = mailSender.createMimeMessage();
-                    message2.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-                    String emailTrainer = userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
-                    message2.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
-                    message2.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
-                    String htmlContent1 = "<h1 style=\"color:black;\">Dear " + nameTrainer + ",</h1>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
-                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
-                            "<a href='" + link + "'></a>" +
-                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
-                    message2.setContent(htmlContent1, "text/html; charset=utf-8");
-                    mailSender.send(message2);
-                }
-                return CustomResponse.generate(HttpStatus.OK, "email berhasil dikirim");
-            }
-
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+            MimeMessage messageTA = mailSender.createMimeMessage();
+            messageTA.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+            String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+            messageTA.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+            messageTA.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
+            String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+                    "<hr>" +
+                    "<p style=\"color:black;\">You are invited for Online Interview HR at:</p>" +
+                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<a href='" + link + "'></a>" +
+                    "<p><b>Terms & Condition</b></p>" +
+                    "<ul>" +
+                    "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
+                    "<li>Ontime  : Please attend 10 minutes early</li>" +
+                    "<li>Preparation : Prepare your laptop/ phone and internet also make sure the internet is stable.</li>"
+                    +
+                    "</ul>" +
+                    "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                    "<hr>" +
+                    "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+            messageTA.setContent(htmlContent, "text/html; charset=utf-8");
+            mailSender.send(messageTA);
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+        if (status == 3) {
+            String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getCv().getCv_id());
+            String nameTrainer = cvRepository.findNameById(interviewUser.getTrainer().getCv().getCv_id());
+            String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
+            String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
+            String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
+
+            MimeMessage message1 = mailSender.createMimeMessage();
+            message1.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+            String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+            message1.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+            message1.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
+            String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+                    "<hr>" +
+                    "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
+                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<a href='" + link + "'></a>" +
+                    "<p><b>Terms & Condition</b></p>" +
+                    "<ul>" +
+                    "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
+                    "<li>Ontime  : Please attend 10 minutes early</li>" +
+                    "<li>Preparation : Prepare your laptop/ phone and internet also make sure the internet is stable.</li>"
+                    +
+                    "</ul>" +
+                    "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                    "<hr>" +
+                    "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+            message1.setContent(htmlContent, "text/html; charset=utf-8");
+            mailSender.send(message1);
+
+            MimeMessage message2 = mailSender.createMimeMessage();
+            message2.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+            String emailTrainer = userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
+            message2.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
+            message2.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
+            String htmlContent1 = "<h1 style=\"color:black;\">Dear " + nameTrainer + ",</h1>" +
+                    "<hr>" +
+                    "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
+                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<a href='" + link + "'></a>" +
+                    "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                    "<hr>" +
+                    "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+            message2.setContent(htmlContent1, "text/html; charset=utf-8");
+            mailSender.send(message2);
+        }
+        return CustomResponse.generate(HttpStatus.OK, "email berhasil dikirim");
     }
+
+    return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+}
+return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+}
 
     @GetMapping("interviews/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {

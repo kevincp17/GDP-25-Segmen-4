@@ -14,4 +14,7 @@ import com.portal.project.model.CvInfo;
 public interface ApplyRepository extends JpaRepository<Apply, Integer>{
     @Query(value = "SELECT * FROM tb_tr_apply_job where user_id=:id",nativeQuery = true)
     public List<Apply> findJobAppliesByUserID(@Param("id") Integer id); 
+
+    // @Query(value = "SELECT a.*, c.* FROM tb_tr_apply_job a,tb_m_cv c where a.user_id=c.user_id;", nativeQuery = true)
+    // public List<Apply> findJobApplyTA();
 }
