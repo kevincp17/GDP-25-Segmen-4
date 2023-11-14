@@ -27,9 +27,9 @@ public class Cv {
     private String address; 
     private String photo; 
     
-    @OneToOne
-    @JoinColumn(name="user_id")
-    private User user;
+    // @OneToOne
+    // @JoinColumn(name="user_id")
+    // private User user;
 
     @JsonIgnore
     @OneToMany(mappedBy="cv")
@@ -75,13 +75,13 @@ public class Cv {
         this.photo = photo;
     }
 
-    public User getUser() {
-        return user;
-    }
+    // public User getUser() {
+    //     return user;
+    // }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+    // public void setUser(User user) {
+    //     this.user = user;
+    // }
 
     public Set<CvInfo> getCvInfos() {
         return cvInfos;

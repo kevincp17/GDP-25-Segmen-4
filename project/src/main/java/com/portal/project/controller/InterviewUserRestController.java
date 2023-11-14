@@ -1,10 +1,18 @@
 package com.portal.project.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +22,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.portal.project.dto.InterviewRequest;
 import com.portal.project.handler.CustomResponse;
+import com.portal.project.model.Apply;
+import com.portal.project.model.Career;
 import com.portal.project.model.Interview;
 import com.portal.project.model.InterviewUser;
 import com.portal.project.model.Status;
+import com.portal.project.model.User;
+import com.portal.project.repository.CVRepository;
 import com.portal.project.repository.InterviewRepository;
 import com.portal.project.repository.InterviewUserRepository;
+import com.portal.project.repository.RoleRepository;
 import com.portal.project.repository.StatusRepository;
 import com.portal.project.repository.UserRepository;
 
@@ -35,10 +47,19 @@ public class InterviewUserRestController {
     private InterviewRepository interviewRepository;
 
     @Autowired
-    private StatusRepository statusRepository;
+    private JavaMailSender mailSender;
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private StatusRepository statusRepository;
+
+    @Autowired
+    private CVRepository cvRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("interviews")
     public ResponseEntity<Object> get() {
@@ -50,76 +71,142 @@ public class InterviewUserRestController {
     }
 
     @PostMapping("interviews")
-    public ResponseEntity<Object> save(@RequestBody InterviewRequest interviewRequest) {
-        try {
-            Status status = statusRepository.findById(interviewRequest.getStatus_id()).orElse(null);
-            Interview inter = interviewRepository.findById(interviewRequest.getInterview_id()).orElse(null);
-            // User user = userRepository.findById(null)
-            // if (status == null) {
-            //     return CustomResponse.generate(HttpStatus.BAD_REQUEST, "Pilih Status");
-            // }
+    public ResponseEntity<Object> save(@RequestBody InterviewUser interviewUser)
+            throws AddressException, MessagingException {
+        interviewRepository.save(interviewUser.getInterview());
+        Boolean result = interviewRepository.existsById(interviewUser.getInterview().getInterview_id());
+        if (result) {
+            interviewUserRepository.save(interviewUser);
+            Boolean result2 = interviewUserRepository.existsById(interviewUser.getInterview_user_id());
 
-            InterviewUser interview = new InterviewUser();
+            if (result2) {
+                LocalDateTime now = LocalDateTime.now();
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("ddMMyyyyHHmmss");
 
-            interview.setInterview_user_id(interviewRequest.getInterview_user_id());
-            interview.setInterview_date(interviewRequest.getInterview_date());
-            interview.setLink(interviewRequest.getLink());
-            interview.setStatus(status);
-            
-            interview.setApplicant(interviewRequest.getApplicant());
-            interview.setTa(interviewRequest.getTa());
-            interview.setTrainer(interviewRequest.getTrainer());
-            interview.setInterview(inter);
+                // MimeMessage message = mailSender.createMimeMessage();
+                // message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                // String emailApplicant =
+                // userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+                // String emailTrainer =
+                // userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
+                // message.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+                // message.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
+                // message.setSubject("[" + dtf.format(now) + "]" + " Invitation Online
+                // Interview");
 
-            interviewUserRepository.save(interview);
-            Boolean isInterviewUserSaved = interviewUserRepository.findById(interview.getInterview_user_id())
-                    .isPresent();
-            if (isInterviewUserSaved) {
-                // Interview inter = new Interview();
+                Integer status = statusRepository.findStatusById(interviewUser.getStatus().getStatus_id());
 
-                // inter.setInterview_id(interviewRequest.getInterview_id());
-                // inter.setInterview_name(interviewRequest.getInterview_name());
-                // // inter.setCareer(interviewRequest.getCareer());
+                // Integer roleApplicant =
+                // userRepository.findRoleById(interviewUser.getApplicant().getUser_id());
+                // Integer roleTrainer =
+                // userRepository.findRoleById(interviewUser.getTrainer().getUser_id());
 
-                // interviewRepository.save(inter);
-                // Boolean isInterviewSaved =
-                // interviewRepository.findById(inter.getInterview_id()).isPresent();
-                return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
-                // if (isInterviewSaved) {
-                // return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
-                // }
-                // return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+                if (status == 2) {
+                    String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
+                    String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
+                    String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
+                    String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
+
+                    MimeMessage messageTA = mailSender.createMimeMessage();
+                    messageTA.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                    String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+                    messageTA.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+                    messageTA.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
+                    String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+                            "<hr>" +
+                            "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
+                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                            "<a href='" + link + "'></a>" +
+                            "<p><b>Terms & Condition</b></p>" +
+                            "<ul>" +
+                            "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
+                            "<li>Ontime  : Please attend 10 minutes early</li>" +
+                            "<li>Preparation : Prepare your laptop/ phone and internet also make sure the internet is stable.</li>"
+                            +
+                            "</ul>" +
+                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                            "<hr>" +
+                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+                    messageTA.setContent(htmlContent, "text/html; charset=utf-8");
+                    mailSender.send(messageTA);
+                }
+                if (status == 3) {
+                    String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
+                    String nameTrainer = cvRepository.findNameById(interviewUser.getTrainer().getUser_id());
+                    String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
+                    String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
+                    String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
+
+                    MimeMessage message1 = mailSender.createMimeMessage();
+                    message1.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                    String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+                    message1.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+                    message1.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
+                    String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+                            "<hr>" +
+                            "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
+                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                            "<a href='" + link + "'></a>" +
+                            "<p><b>Terms & Condition</b></p>" +
+                            "<ul>" +
+                            "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
+                            "<li>Ontime  : Please attend 10 minutes early</li>" +
+                            "<li>Preparation : Prepare your laptop/ phone and internet also make sure the internet is stable.</li>"
+                            +
+                            "</ul>" +
+                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                            "<hr>" +
+                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+                    message1.setContent(htmlContent, "text/html; charset=utf-8");
+                    mailSender.send(message1);
+
+                    MimeMessage message2 = mailSender.createMimeMessage();
+                    message2.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                    String emailTrainer = userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
+                    message2.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
+                    message2.setSubject("[" + dtf.format(now) + "]" + " Invitation Online Interview");
+                    String htmlContent1 = "<h1 style=\"color:black;\">Dear " + nameTrainer + ",</h1>" +
+                            "<hr>" +
+                            "<p style=\"color:black;\">You are invited for Online Interview User at:</p>" +
+                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                            "<a href='" + link + "'></a>" +
+                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                            "<hr>" +
+                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+                    message2.setContent(htmlContent1, "text/html; charset=utf-8");
+                    mailSender.send(message2);
+                }
+                return CustomResponse.generate(HttpStatus.OK, "email berhasil dikirim");
             }
-            return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
-        } catch (Exception e) {
-            return CustomResponse.generate(HttpStatus.BAD_REQUEST, "failed");
+
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
         }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+    }
 
-        // //getbyid
-        // @GetMapping("interviews/{id}")
-        // public ResponseEntity<Object> get(@PathVariable(required = true) Integer id)
-        // {
-        // Boolean result = interviewRepository.findById(id).isPresent();
-        // if(result) {
-        // InterviewUser newInterview = interviewRepository.findById(id).orElse(null);
-        // return CustomResponse.generate(HttpStatus.OK, "data ditemukan",
-        // newInterview);
-        // }
-        // return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak
-        // ditemukan");
-        // }
+    @GetMapping("interviews/{id}")
+    public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
+        Boolean result = interviewUserRepository.findApplicantByUserID(id).isEmpty();
+        if(!result) {
+            List<InterviewUser> newInterview = interviewUserRepository.findApplicantByUserID(id);
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newInterview);
+        } 
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
+    }
 
-        // //delete
-        // @DeleteMapping("interviews/{id}")
-        // public ResponseEntity<Object> delete(@PathVariable(required = true) Integer
-        // id) {
-        // Boolean result = interviewRepository.findById(id).isPresent();
-        // if(result) {
-        // interviewRepository.deleteById(id);
-        // return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
-        // }
-        // return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil
-        // dihapus");
-        // }
+    @GetMapping("interviewsTrainer/{id}")
+    public ResponseEntity<Object> getTrainer(@PathVariable(required = true) Integer id) {
+        Boolean result = interviewUserRepository.findTrainerByUserID(id).isEmpty();
+        if(!result) {
+            List<InterviewUser> newInterview = interviewUserRepository.findTrainerByUserID(id);
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newInterview);
+        } 
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
     }
 }

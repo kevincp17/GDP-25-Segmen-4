@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.portal.project.model.Cv;
-import com.portal.project.repository.CvRepository;
+import com.portal.project.repository.CVRepository;
 
 @Controller
 @RequestMapping("profile")
 public class ProfileController {
     @Autowired
-    private CvRepository cvRepository;
+    private CVRepository cvRepository;
 
     @GetMapping
     public String index(){

@@ -35,14 +35,16 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    @PostMapping("apply")
-    public ResponseEntity<Object> save(@RequestBody Apply apply) {
-        applyRepository.save(apply);
-        Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
-        if(result) {
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+    @PostMapping("apply/{id}")
+    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id){
+        Boolean result = applyRepository.findById(id).isPresent();
+        if(result){
+            Apply newApply = applyRepository.findById(id).orElse(null);
+            newApply.setStatus(apply.getStatus());
+            applyRepository.save(newApply);
+            return CustomResponse.generate(HttpStatus.OK, "berhasil menyimpan data");
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "tidak berhasil menyimpan data");
     }
 
     //getbyid

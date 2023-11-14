@@ -18,7 +18,7 @@ import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Career;
 import com.portal.project.model.Cv;
 import com.portal.project.model.User;
-import com.portal.project.repository.CvRepository;
+import com.portal.project.repository.CVRepository;
 import com.portal.project.repository.UserRepository;
 
 @CrossOrigin
@@ -26,7 +26,7 @@ import com.portal.project.repository.UserRepository;
 @RequestMapping("profile")
 public class CVRestController {
     @Autowired
-    private CvRepository CvRepository;
+    private CVRepository CvRepository;
 
     @GetMapping("cv")
     public ResponseEntity<Object> get(Model model) {

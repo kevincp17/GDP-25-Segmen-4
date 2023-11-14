@@ -24,7 +24,7 @@ import com.portal.project.dto.RegisterRequest;
 import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Cv;
 import com.portal.project.model.User;
-import com.portal.project.repository.CvRepository;
+import com.portal.project.repository.CVRepository;
 import com.portal.project.repository.UserRepository;
 
 @RestController
@@ -34,7 +34,7 @@ public class AccountRestController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private CvRepository cvRepository;
+    private CVRepository cvRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -63,7 +63,7 @@ public class AccountRestController {
             cv.setName(registerRequest.getName());
             cv.setPhone(registerRequest.getPhone());
             cv.setAddress(registerRequest.getAddress());
-            cv.setUser(user);
+            // cv.setUser(user);
 
             cvRepository.save(cv);
             Boolean isCvSaved = cvRepository.findById(cv.getCv_id()).isPresent();

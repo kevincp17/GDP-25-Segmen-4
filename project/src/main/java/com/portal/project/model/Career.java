@@ -31,7 +31,7 @@ public class Career {
     private Date start_post_date;
     private Date end_post_date;
     private Integer salary;
-    private String picture;
+    // private String picture;
 
     @JsonIgnore
     @OneToMany(mappedBy = "career")
@@ -99,12 +99,12 @@ public class Career {
     public void setSalary(Integer salary) {
         this.salary = salary;
     }
-    public String getPicture() {
-        return picture;
-    }
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
+    // public String getPicture() {
+    //     return picture;
+    // }
+    // public void setPicture(String picture) {
+    //     this.picture = picture;
+    // }
     public Set<Career> getCareer() {
         return career;
     }

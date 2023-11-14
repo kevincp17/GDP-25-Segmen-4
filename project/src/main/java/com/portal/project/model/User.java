@@ -25,13 +25,17 @@ public class User {
     private String email;
     private String password;
     
-    @JsonIgnore
-    @OneToOne(mappedBy="user")
+    @OneToOne
+    @JoinColumn(name = "user_id")
     private Cv cv;
 
     @JsonIgnore
     @OneToMany(mappedBy = "applicant")
     public Set<User> applicant;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "ta")
+    public Set<User> ta;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
@@ -77,14 +81,6 @@ public class User {
         this.password = password;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
     public Cv getCv() {
         return cv;
     }
@@ -101,7 +97,14 @@ public class User {
         this.applicant = applicant;
     }
 
-    
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public Set<InterviewUser> getInterviewApplicants() {
         return interviewApplicants;
     }
@@ -132,6 +135,16 @@ public class User {
 
     public void setApplies(Set<Apply> applies) {
         this.applies = applies;
-    }  
+    }
 
+    // public Set<User> getTa() {
+    //     return ta;
+    // }
+
+    // public void setTa(Set<User> ta) {
+    //     this.ta = ta;
+    // }
+
+    
+    
 }

@@ -26,15 +26,4 @@ public class ApplyController {
         model.addAttribute("applies", applyRepository.findAll());
         return "apply/index";
     }
-
-    // @PostMapping("save")
-    // public String save(Apply apply) {
-    //     applyRepository.save(apply);
-    //     Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
-    //     if(result){
-    //         return "redirect:/";
-    //     }
-    //     return "";
-    // }
-
 }

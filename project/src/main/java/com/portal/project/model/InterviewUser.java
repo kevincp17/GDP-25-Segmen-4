@@ -1,6 +1,9 @@
 package com.portal.project.model;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +12,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_tr_interview_user")
@@ -18,7 +26,8 @@ public class InterviewUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "interview_user_id")
     private Integer interview_user_id;
-    private Date interview_date;
+    @DateTimeFormat(pattern ="yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime interview_date;
     private String link;
      
     @ManyToOne
@@ -47,14 +56,6 @@ public class InterviewUser {
 
     public void setInterview_user_id(Integer interview_user_id) {
         this.interview_user_id = interview_user_id;
-    }
-
-    public Date getInterview_date() {
-        return interview_date;
-    }
-
-    public void setInterview_date(Date interview_date) {
-        this.interview_date = interview_date;
     }
 
     public String getLink() {
@@ -105,10 +106,17 @@ public class InterviewUser {
         this.status = status;
     }
 
+    public LocalDateTime getInterview_date() {
+        return interview_date;
+    }
+
+    public void setInterview_date(LocalDateTime interview_date) {
+        this.interview_date = interview_date;
+    }
+
     
 
     
-    
-    
+
     
 }

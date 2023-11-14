@@ -61,11 +61,6 @@ public class Interview {
 
     public void setInterview_name(String interview_name) {
         this.interview_name = interview_name;
-    }    
-
-    
-
-    
-    
+    }
     
 }
