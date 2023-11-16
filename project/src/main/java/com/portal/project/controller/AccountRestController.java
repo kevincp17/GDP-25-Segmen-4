@@ -63,7 +63,7 @@ public class AccountRestController {
             cv.setName(registerRequest.getName());
             cv.setPhone(registerRequest.getPhone());
             cv.setAddress(registerRequest.getAddress());
-            // cv.setUser(user);
+            cv.setUser(user);
 
             cvRepository.save(cv);
             Boolean isCvSaved = cvRepository.findById(cv.getCv_id()).isPresent();

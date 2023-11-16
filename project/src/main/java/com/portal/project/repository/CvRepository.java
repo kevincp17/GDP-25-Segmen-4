@@ -15,8 +15,16 @@ public interface CvRepository extends JpaRepository<Cv,Integer>{
     // public List<Cv> findCvByUserId(@Param("id") Integer id);
 
     @Query(value="select *\n"+
-    "from tb_m_cv cv JOIN tb_m_user u ON cv.user_id=u.user_id where cv.user_id=:id",nativeQuery = true)
+    "from tb_m_cv cv JOIN tb_m_user u ON cv.user_id=u.user_id where u.user_id=:id",nativeQuery = true)
     public Cv findCVByUserId(@Param("id") Integer id);
+
+    @Query(value="select *\n"+
+    "from tb_m_cv cv JOIN tb_m_user u ON cv.user_id=u.user_id where u.role_id=1",nativeQuery = true)
+    public List<Cv> findTAByUserRole();
+
+    @Query(value="select *\n"+
+    "from tb_m_cv cv JOIN tb_m_user u ON cv.user_id=u.user_id where u.role_id=2",nativeQuery = true)
+    public List<Cv> findTrainerByUserRole();
 
     @Query(value = "select name from tb_m_cv where cv_id = ?1", nativeQuery = true)
     public String findNameById(Integer id);

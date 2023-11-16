@@ -16,6 +16,12 @@ public interface CvInfoRepository extends JpaRepository<CvInfo,Integer>{
     @Query(value = "select ci.* from tb_tr_cv_info ci,tb_m_cv cv,tb_m_skill s where ci.cv_id=:id AND cv.user_id=:id AND ci.skill_id=s.skill_id",nativeQuery = true)
     public List<CvInfo> findSkillsByCvID(@Param("id") Integer id); 
 
+    @Query(value = "select ci.* from tb_tr_cv_info ci,tb_m_cv cv,tb_m_skill s where ci.cv_id=:id AND cv.user_id=:id AND ci.skill_id=s.skill_id AND s.skill_type=\"Soft Skills\"",nativeQuery = true)
+    public List<CvInfo> findSoftSkillsByCvID(@Param("id") Integer id);
+
+    @Query(value = "select ci.* from tb_tr_cv_info ci,tb_m_cv cv,tb_m_skill s where ci.cv_id=:id AND cv.user_id=:id AND ci.skill_id=s.skill_id AND s.skill_type=\"Hard Skills\"",nativeQuery = true)
+    public List<CvInfo> findHardSkillsByCvID(@Param("id") Integer id);
+
     @Query(value = "select ci.* from tb_tr_cv_info ci,tb_m_cv cv,tb_m_experience e where ci.cv_id=:id AND cv.user_id=:id AND ci.exp_id=e.exp_id ORDER BY e.start_date DESC",nativeQuery = true)
     public List<CvInfo> findExperiencesByCvID(@Param("id") Integer id); 
 

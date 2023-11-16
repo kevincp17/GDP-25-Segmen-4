@@ -102,7 +102,7 @@ if (result) {
         // userRepository.findRoleById(interviewUser.getTrainer().getUser_id());
 
         if (status == 2) {
-            String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getCv().getCv_id());
+            String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
             String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
             String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
             String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
@@ -133,8 +133,8 @@ if (result) {
             mailSender.send(messageTA);
         }
         if (status == 3) {
-            String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getCv().getCv_id());
-            String nameTrainer = cvRepository.findNameById(interviewUser.getTrainer().getCv().getCv_id());
+            String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
+            String nameTrainer = cvRepository.findNameById(interviewUser.getTrainer().getUser_id());
             String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
             String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
             String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());

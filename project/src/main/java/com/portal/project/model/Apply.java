@@ -33,6 +33,10 @@ public class Apply {
     @JoinColumn(name = "user_id")
     private User applicant;
 
+    @ManyToOne
+    @JoinColumn(name = "cv_id")
+    private Cv cv;
+
     // @ManyToOne
     // @JoinColumn(name = "status_id")
     // private Status status;
@@ -75,6 +79,14 @@ public class Apply {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
     }
 
     

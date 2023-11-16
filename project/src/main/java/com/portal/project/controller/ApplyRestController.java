@@ -38,11 +38,21 @@ public class ApplyRestController {
 
     @GetMapping("apply")
     public ResponseEntity<Object> get() {
-        List<Apply> data = applyRepository.findAll();
+        List<Apply> data = applyRepository.findAllJobApplies();
         if(data.isEmpty()) {
             return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan");
         }
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
+    @PostMapping("apply")
+    public ResponseEntity<Object> save(@RequestBody Apply apply) {
+        applyRepository.save(apply);
+        Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
+        if(result) {
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }
 
         @PostMapping("apply/{id}")
@@ -71,15 +81,9 @@ public class ApplyRestController {
             if (status == 5) {
                 String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
 
-                        "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to offer you the position of <b>"
+                        "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to inform you that you're accepted to the position of <b>"
                         + job + "<b>.</p>" +
-                        "<p style=\"color:black;\">The following is <b>Offering Letter</b>, <b>Employee Master Form</b>, and <b>Joining Sheet</b> as documents that must be completed. With this e-mail, I sent you the Offering Letter for the finalization of this process. Please download it and read it carefully.</p>"
-                        +
-                        "<p style=\"color:black;\"><b>Kindly sign digital offering letter and send it back in PDF</b></p>"
-                        +
-                        "<p style=\"color:black;\"><b>Pay attention to points 1 to 12 on joining sheet and send it back in zip or rar.</b></p>"
-                        +
-                        "<p style=\"color:black;\">If you have any questions, do not hesitate to contact me on WhatsApp.</p>"
+                        "<p style=\"color:black;\">We welcome you to our team and look forward to starting this exciting journey together.</p>"
                         +
                         "<p style=\"color:black;\">Thanks & Regards,</p>" +
                         "<p style=\"color:black;\">Talent Acquisition • PT. Bumi Amartha Teknologi Mandiri</p>";
@@ -110,12 +114,13 @@ public class ApplyRestController {
     //getbyid
     @GetMapping("apply/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
-        Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
-        if(!result) {
-            List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
+        List<Apply> newApply=applyRepository.findJobAppliesByUserID(id);
+        // Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
+        if(newApply.isEmpty()) {
+            // List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
     }
 
     //delete
