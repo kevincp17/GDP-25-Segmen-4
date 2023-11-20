@@ -95,15 +95,26 @@ if (result) {
             messageApplicant.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
             messageApplicant.setSubject(
                             "Invitation Online Interview - " +"<b>"+ job + "</b>"+"/" + nameApplicant + "[" + dtf.format(now) + "]");
-            String htmlContentApplicant = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+            String htmlContentApplicant = "<h2 style=\"color:black;\">Dear " + nameApplicant + ",</h2>" +
                     "<hr>" +
                     "<p style=\"color:black;\">Thank you for applying to the " + job
                             + " position at PT. Bumi Amartha Teknologi Mandiri.</p>" +
                     "<p style=\"color:black;\">You are invited for <b>Online Interview HR</b> at:</p>" +
-                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<table style=\"width:70%; border-collapse: collapse;\">" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Date</td>" +
+                    "<td style=\"border: 1px solid\">"+ date+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Time</td>" +
+                    "<td style=\"border: 1px solid\">"+ time+ " WIB" + "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Link</td>" +
+                    "<td style=\"border: 1px solid\">"+ link+ "</td>" +
                     "<a href='" + link + "'></a>" +
+                    "</tr>" +
+                    "</table>" +
                     "<p><b>Terms & Condition</b></p>" +
                     "<ul>" +
                     "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
@@ -122,15 +133,32 @@ if (result) {
             String emailTA = userRepository.findEmailById(interviewUser.getTa().getUser_id());
             messageTA.setRecipients(MimeMessage.RecipientType.TO, emailTA);
             messageTA.setSubject("Invitation Online Interview " + "[" + dtf.format(now) + "]");
-            String htmlContentTA = "<h1 style=\"color:black;\">Dear " + nameTA + ",</h1>" +
+            String htmlContentTA = "<h2 style=\"color:black;\">Dear " + nameTA + ",</h2>" +
                     "<hr>" +
                     "<p style=\"color:black;\">You are invited for <b>Online Interview HR</b> at:</p>" +
-                    "<p style=\"color:black;\"><b>Applicant Name:</b> " + nameApplicant + "</p>" +
-                    "<p style=\"color:black;\"><b>Job:</b> " + job + "</p>" +
-                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<table style=\"width:70%; border-collapse: collapse;\">" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Applicant Name</td>" +
+                    "<td style=\"border: 1px solid\">"+ nameApplicant+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Job</td>" +
+                    "<td style=\"border: 1px solid\">"+ job+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Date</td>" +
+                    "<td style=\"border: 1px solid\">"+ date+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Time</td>" +
+                    "<td style=\"border: 1px solid\">"+ time+ " WIB" + "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Link</td>" +
+                    "<td style=\"border: 1px solid\">"+ link + "</td>" +
                     "<a href='" + link + "'></a>" +
+                    "</tr>" +
+                    "</table>" +
                     "</ul>" +
                     "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
                     "<hr>" +
@@ -151,15 +179,29 @@ if (result) {
             String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
             message1.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
             message1.setSubject(
-                            "Invitation Online Interview - " + job + "/" + nameApplicant + "[" + dtf.format(now) + "]");
-            String htmlContent = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+                            "Invitation Online Interview - " + job + "/" + nameApplicant + " [" + dtf.format(now) + "]");
+            String htmlContent = "<h2 style=\"color:black;\">Dear " + nameApplicant + ",</h2>" +
                     "<hr>" +
                     "<p style=\"color:black;\">You are invited for <b>Online Interview User (Technical Test)</b>:</p>" +
-                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                    "<p style=\"color:black;\"><b>User:</b> " + nameTrainer + "</p>" +
-                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<table style=\"width:70%; border-collapse: collapse;\">" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Date</td>" +
+                    "<td style=\"border: 1px solid\">"+ date+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Time</td>" +
+                    "<td style=\"border: 1px solid\">"+ time+ " WIB" + "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">User</td>" +
+                    "<td style=\"border: 1px solid\">"+ nameTrainer+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Link</td>" +
+                    "<td style=\"border: 1px solid\">"+ link+ "</td>" +
                     "<a href='" + link + "'></a>" +
+                    "</tr>" +
+                    "</table>" +
                     "<p><b>Terms & Condition</b></p>" +
                     "<ul>" +
                     "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
@@ -178,15 +220,32 @@ if (result) {
             String emailTrainer = userRepository.findEmailById(interviewUser.getTrainer().getUser_id());
             message2.setRecipients(MimeMessage.RecipientType.TO, emailTrainer);
             message2.setSubject("Invitation Online Interview " + "[" + dtf.format(now) + "]");
-            String htmlContent1 = "<h1 style=\"color:black;\">Dear " + nameTrainer + ",</h1>" +
+            String htmlContent1 = "<h2 style=\"color:black;\">Dear " + nameTrainer + ",</h2>" +
                     "<hr>" +
                     "<p style=\"color:black;\">You are invited for <b>Online Interview User (Technical Test)</b> at:</p>" +
-                    "<p style=\"color:black;\"><b>Applicant Name:</b> " + nameApplicant + "</p>" +
-                    "<p style=\"color:black;\"><b>Job:</b> " + job + "</p>" +
-                    "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                    "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                    "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                    "<table style=\"width:70%; border-collapse: collapse;\">" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Applicant Name</td>" +
+                    "<td style=\"border: 1px solid\">"+ nameApplicant+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Job</td>" +
+                    "<td style=\"border: 1px solid\">"+ job+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Date</td>" +
+                    "<td style=\"border: 1px solid\">"+ date+ "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Time</td>" +
+                    "<td style=\"border: 1px solid\">"+ time+ " WIB" + "</td>" +
+                    "</tr>" +
+                    "<tr>" +
+                    "<td style=\"border: 1px solid; font-weight: bold;\">Link</td>" +
+                    "<td style=\"border: 1px solid\">"+ link + "</td>" +
                     "<a href='" + link + "'></a>" +
+                    "</tr>" +
+                    "</table>" +
                     "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
                     "<hr>" +
                     "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
@@ -204,20 +263,20 @@ return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disi
     @GetMapping("interviews/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
         Boolean result = interviewUserRepository.findApplicantByUserID(id).isEmpty();
-        if(!result) {
+        if (!result) {
             List<InterviewUser> newInterview = interviewUserRepository.findApplicantByUserID(id);
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newInterview);
-        } 
+        }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
     }
 
     @GetMapping("interviewsTrainer/{id}")
     public ResponseEntity<Object> getTrainer(@PathVariable(required = true) Integer id) {
         Boolean result = interviewUserRepository.findTrainerByUserID(id).isEmpty();
-        if(!result) {
+        if (!result) {
             List<InterviewUser> newInterview = interviewUserRepository.findTrainerByUserID(id);
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newInterview);
-        } 
+        }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
     }
 
