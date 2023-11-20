@@ -50,6 +50,10 @@ public class InterviewUser {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "cv_id")
+    private Cv cv;  
+
     public Integer getInterview_user_id() {
         return interview_user_id;
     }
@@ -114,6 +118,15 @@ public class InterviewUser {
         this.interview_date = interview_date;
     }
 
+    public Cv getCv() {
+        return cv;
+    }
+
+    public void setCv(Cv cv) {
+        this.cv = cv;
+    }
+
+    
     
 
     
