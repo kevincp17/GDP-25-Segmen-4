@@ -74,7 +74,7 @@ public class ApplyRestController {
 
             message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
             message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
-            message.setSubject("[" + dtf.format(now) + "] " + "Amartek " + job + " Recruitment Process");
+            message.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
 
             Integer status = newApply.getStatus().getStatus_id();
 
