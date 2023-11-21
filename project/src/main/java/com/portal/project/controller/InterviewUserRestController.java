@@ -27,7 +27,6 @@ import com.portal.project.repository.CareerRepository;
 import com.portal.project.repository.CvRepository;
 import com.portal.project.repository.InterviewRepository;
 import com.portal.project.repository.InterviewUserRepository;
-import com.portal.project.repository.RoleRepository;
 import com.portal.project.repository.StatusRepository;
 import com.portal.project.repository.UserRepository;
 
@@ -94,11 +93,11 @@ if (result) {
             String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
             messageApplicant.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
             messageApplicant.setSubject(
-                            "Invitation Online Interview - " +"<b>"+ job + "</b>"+"/" + nameApplicant + "[" + dtf.format(now) + "]");
+                            "Invitation Online Interview - " + job +"/" + nameApplicant + "[" + dtf.format(now) + "]");
             String htmlContentApplicant = "<h2 style=\"color:black;\">Dear " + nameApplicant + ",</h2>" +
                     "<hr>" +
-                    "<p style=\"color:black;\">Thank you for applying to the " + job
-                            + " position at PT. Bumi Amartha Teknologi Mandiri.</p>" +
+                    "<p style=\"color:black;\">Thank you for applying to the " +"<b>"+ job
+                            +"</b>" + " position at PT. Bumi Amartha Teknologi Mandiri.</p>" +
                     "<p style=\"color:black;\">You are invited for <b>Online Interview HR</b> at:</p>" +
                     "<table style=\"width:70%; border-collapse: collapse;\">" +
                     "<tr>" +
