@@ -91,8 +91,7 @@ public class ApplyRestController {
                 mimeMessageHelper.setTo(newApply.getApplicant().getEmail());
                 mimeMessageHelper.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
                 mimeMessageHelper.addAttachment("excel.xlsx", new ClassPathResource("/static/file/excel.xlsx"));
-                // mimeMessageHelper.addAttachment("pdf.pdf", new
-                // ClassPathResource("/static/file/pdf.pdf"));
+                mimeMessageHelper.addAttachment("pdf.pdf", new ClassPathResource("/static/file/pdf.pdf"));
                 String htmlContent = "<h4 style=\"color:black;\">Dear " + name + ",</h4>" +
 
                         "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to offer you the position of <b>"
