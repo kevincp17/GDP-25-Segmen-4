@@ -81,20 +81,27 @@ public class ApplyRestController {
             String job = newApply.getCareer().getTitle();
             String name = newApply.getApplicant().getCv().getName();
 
-            MimeMessage message = mailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
+            // MimeMessage message = mailSender.createMimeMessage();
+            // MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
 
             if (status == 4) {
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
                 mimeMessageHelper.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 mimeMessageHelper.setTo(newApply.getApplicant().getEmail());
                 mimeMessageHelper.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
                 mimeMessageHelper.addAttachment("excel.xlsx", new ClassPathResource("/static/file/excel.xlsx"));
-                mimeMessageHelper.addAttachment("pdf.pdf", new ClassPathResource("/static/file/pdf.pdf"));
-                String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
+                // mimeMessageHelper.addAttachment("pdf.pdf", new
+                // ClassPathResource("/static/file/pdf.pdf"));
+                String htmlContent = "<h4 style=\"color:black;\">Dear " + name + ",</h4>" +
 
-                        "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to inform you that you're accepted to the position of <b>"
-                        + job + "<b>.</p>" +
-                        "<p style=\"color:black;\">We welcome you to our team and look forward to starting this exciting journey together.</p>"
+                        "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to offer you the position of <b>"
+                        + job + "</b>.</p>" +
+                        "<p style=\"color:black;\">The following is <b>Offering Letter</b>, <b>Employee Master Form</b>, and <b>Joining Sheet</b> as documents that must be completed. With this e-mail, I sent you the Offering Letter for the finalization of this process. Please download it and read it carefully.</p>"
+                        +
+                        "<p style=\"color:black;\"Kindly sign digital offering letter and send it back in PDF. Pay attention to points 1 to 12 on joining sheet and send it back in zip or rar.</p>"
+                        +
+                        "<p style=\"color:black;\">If you have any questions, do not hesitate to contact me on WhatsApp.</p>"
                         +
                         "<p style=\"color:black;\">Thanks & Regards,</p>" +
                         "<p style=\"color:black;\">Talent Acquisition • PT. Bumi Amartha Teknologi Mandiri</p>";
@@ -102,11 +109,11 @@ public class ApplyRestController {
                 mailSender.send(message);
             }
             if (status == 5) {
-
+                MimeMessage message = mailSender.createMimeMessage();
                 message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
                 message.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
-                String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
+                String htmlContent = "<h4 style=\"color:black;\">Dear " + name + ",</h4>" +
 
                         "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to inform you that you're accepted to the position of <b>"
                         + job + "<b>.</p>" +
@@ -118,11 +125,11 @@ public class ApplyRestController {
                 mailSender.send(message);
             }
             if (status == 6) {
-
+                MimeMessage message = mailSender.createMimeMessage();
                 message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
                 message.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
-                String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
+                String htmlContent = "<h4 style=\"color:black;\">Dear " + name + ",</h4>" +
                         "<p style=\"color:black;\">Thank you for your interest in the " + job
                         + " role at Amartek. We appreciate the time and effort you invested in applying for this position.</p>"
                         +
