@@ -195,64 +195,64 @@ public class InterviewUserRestController {
                     message2.setContent(htmlContent1, "text/html; charset=utf-8");
                     mailSender.send(message2);
                 }
-                if (status == 4) {
-                    String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
-                    String nameTA = cvRepository.findNameById(interviewUser.getTa().getUser_id());
-                    String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
-                    String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
-                    String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
-                    String job = careerRepository.findJobById(interviewUser.getInterview().getCareer().getJob_id());
+                // if (status == 4) {
+                //     String nameApplicant = cvRepository.findNameById(interviewUser.getApplicant().getUser_id());
+                //     String nameTA = cvRepository.findNameById(interviewUser.getTa().getUser_id());
+                //     String date = interviewUserRepository.findInterviewDateById(interviewUser.getInterview_user_id());
+                //     String link = interviewUserRepository.findLinkById(interviewUser.getInterview_user_id());
+                //     String time = interviewUserRepository.findInterviewTimeById(interviewUser.getInterview_user_id());
+                //     String job = careerRepository.findJobById(interviewUser.getInterview().getCareer().getJob_id());
 
-                    MimeMessage messageApplicant = mailSender.createMimeMessage();
-                    messageApplicant.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-                    String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
-                    messageApplicant.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
-                    messageApplicant.setSubject(
-                            "Amartek Invitation Online HR Discussion - " + job + " ["
-                                    + dtf.format(now) + "]");
-                    String htmlContentApplicant = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">Thank you for applying to the " + job
-                            + " position at PT. Bumi Amartha Teknologi Mandiri.</p>" +
-                            "<p style=\"color:black;\">You are invited for <b>Online HR Discussion</b> at:</p>" +
-                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
-                            "<a href='" + link + "'></a>" +
-                            "<p><b>Terms & Condition</b></p>" +
-                            "<ul>" +
-                            "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
-                            "<li>Ontime  : Please attend 10 minutes early</li>" +
-                            "<li>Preparation : <b>Prepare your laptop/ phone and internet also make sure the internet is stable.</b></li>"
-                            +
-                            "</ul>" +
-                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
-                    messageApplicant.setContent(htmlContentApplicant, "text/html; charset=utf-8");
-                    mailSender.send(messageApplicant);
+                //     MimeMessage messageApplicant = mailSender.createMimeMessage();
+                //     messageApplicant.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                //     String emailApplicant = userRepository.findEmailById(interviewUser.getApplicant().getUser_id());
+                //     messageApplicant.setRecipients(MimeMessage.RecipientType.TO, emailApplicant);
+                //     messageApplicant.setSubject(
+                //             "Amartek Invitation Online HR Discussion - " + job + " ["
+                //                     + dtf.format(now) + "]");
+                //     String htmlContentApplicant = "<h1 style=\"color:black;\">Dear " + nameApplicant + ",</h1>" +
+                //             "<hr>" +
+                //             "<p style=\"color:black;\">Thank you for applying to the " + job
+                //             + " position at PT. Bumi Amartha Teknologi Mandiri.</p>" +
+                //             "<p style=\"color:black;\">You are invited for <b>Online HR Discussion</b> at:</p>" +
+                //             "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                //             "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                //             "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                //             "<a href='" + link + "'></a>" +
+                //             "<p><b>Terms & Condition</b></p>" +
+                //             "<ul>" +
+                //             "<li>Commitment : Kindly reply this email or message as attendance confirmation</li>" +
+                //             "<li>Ontime  : Please attend 10 minutes early</li>" +
+                //             "<li>Preparation : <b>Prepare your laptop/ phone and internet also make sure the internet is stable.</b></li>"
+                //             +
+                //             "</ul>" +
+                //             "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                //             "<hr>" +
+                //             "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+                //     messageApplicant.setContent(htmlContentApplicant, "text/html; charset=utf-8");
+                //     mailSender.send(messageApplicant);
 
-                    MimeMessage messageTA = mailSender.createMimeMessage();
-                    messageTA.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-                    String emailTA = userRepository.findEmailById(interviewUser.getTa().getUser_id());
-                    messageTA.setRecipients(MimeMessage.RecipientType.TO, emailTA);
-                    messageTA.setSubject("Invitation Online HR Discussion " + "[" + dtf.format(now) + "]");
-                    String htmlContentTA = "<h1 style=\"color:black;\">Dear " + nameTA + ",</h1>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">You are invited for <b>Online HR Discussion</b> at:</p>" +
-                            "<p style=\"color:black;\"><b>Applicant Name:</b> " + nameApplicant + "</p>" +
-                            "<p style=\"color:black;\"><b>Job:</b> " + job + "</p>" +
-                            "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
-                            "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
-                            "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
-                            "<a href='" + link + "'></a>" +
-                            "</ul>" +
-                            "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
-                            "<hr>" +
-                            "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
-                    messageTA.setContent(htmlContentTA, "text/html; charset=utf-8");
-                    mailSender.send(messageTA);
-                }
+                //     MimeMessage messageTA = mailSender.createMimeMessage();
+                //     messageTA.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                //     String emailTA = userRepository.findEmailById(interviewUser.getTa().getUser_id());
+                //     messageTA.setRecipients(MimeMessage.RecipientType.TO, emailTA);
+                //     messageTA.setSubject("Invitation Online HR Discussion " + "[" + dtf.format(now) + "]");
+                //     String htmlContentTA = "<h1 style=\"color:black;\">Dear " + nameTA + ",</h1>" +
+                //             "<hr>" +
+                //             "<p style=\"color:black;\">You are invited for <b>Online HR Discussion</b> at:</p>" +
+                //             "<p style=\"color:black;\"><b>Applicant Name:</b> " + nameApplicant + "</p>" +
+                //             "<p style=\"color:black;\"><b>Job:</b> " + job + "</p>" +
+                //             "<p style=\"color:black;\"><b>Date:</b> " + date + "</p>" +
+                //             "<p style=\"color:black;\"><b>Time:</b> " + time + " WIB</p>" +
+                //             "<p style=\"color:black;\"><b>Link:</b> " + link + "</p>" +
+                //             "<a href='" + link + "'></a>" +
+                //             "</ul>" +
+                //             "<p style=\"color:black;\">Thank you for using our application.<b>-Admin</b></p>" +
+                //             "<hr>" +
+                //             "<p style=\"color:black;\">If the button above does not work, try copying and pasting the URL into your browser. If you continue to have problems, please feel free to contact us at jobportal.amartek@gmail.com</p>";
+                //     messageTA.setContent(htmlContentTA, "text/html; charset=utf-8");
+                //     mailSender.send(messageTA);
+                // }
                 return CustomResponse.generate(HttpStatus.OK, "email berhasil dikirim");
             }
 

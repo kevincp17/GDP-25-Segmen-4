@@ -1,7 +1,9 @@
 package com.portal.project.controller;
 
+import java.io.File;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.mail.MessagingException;
@@ -10,9 +12,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,7 +45,7 @@ public class ApplyRestController {
     @GetMapping("apply")
     public ResponseEntity<Object> get() {
         List<Apply> data = applyRepository.findAllJobApplies();
-        if(data.isEmpty()) {
+        if (data.isEmpty()) {
             return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan");
         }
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
@@ -49,14 +55,15 @@ public class ApplyRestController {
     public ResponseEntity<Object> save(@RequestBody Apply apply) {
         applyRepository.save(apply);
         Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
-        if(result) {
+        if (result) {
             return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }
 
-        @PostMapping("apply/{id}")
-    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id)
+    @PostMapping("apply/{id}")
+    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id,
+            String attachment)
             throws AddressException, MessagingException {
         Boolean result = applyRepository.findById(id).isPresent();
         if (result) {
@@ -67,18 +74,41 @@ public class ApplyRestController {
             DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyyMMddHHmmss");
             LocalDateTime now = LocalDateTime.now();
 
-            MimeMessage message = mailSender.createMimeMessage();
-
-            String job = newApply.getCareer().getTitle();
-            String name = newApply.getApplicant().getCv().getName();
-
-            message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
-            message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
-            message.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
-
             Integer status = newApply.getStatus().getStatus_id();
 
+            if (status == 4) {
+                MimeMessage message = mailSender.createMimeMessage();
+                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
+
+                String job = newApply.getCareer().getTitle();
+                String name = newApply.getApplicant().getCv().getName();
+
+                mimeMessageHelper.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                mimeMessageHelper.setTo(newApply.getApplicant().getEmail());
+                mimeMessageHelper.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
+                mimeMessageHelper.addAttachment("excel.xlsx", new ClassPathResource("/static/file/excel.xlsx"));
+                mimeMessageHelper.addAttachment("pdf.pdf", new ClassPathResource("/static/file/pdf.pdf"));
+                String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
+
+                        "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to inform you that you're accepted to the position of <b>"
+                        + job + "<b>.</p>" +
+                        "<p style=\"color:black;\">We welcome you to our team and look forward to starting this exciting journey together.</p>"
+                        +
+                        "<p style=\"color:black;\">Thanks & Regards,</p>" +
+                        "<p style=\"color:black;\">Talent Acquisition • PT. Bumi Amartha Teknologi Mandiri</p>";
+                mimeMessageHelper.setText(htmlContent, true);
+                mailSender.send(message);
+                // System.out.println("mail has been sent");
+            }
             if (status == 5) {
+                MimeMessage message = mailSender.createMimeMessage();
+
+                String job = newApply.getCareer().getTitle();
+                String name = newApply.getApplicant().getCv().getName();
+
+                message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
+                message.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
                 String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
 
                         "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to inform you that you're accepted to the position of <b>"
@@ -91,8 +121,18 @@ public class ApplyRestController {
                 mailSender.send(message);
             }
             if (status == 6) {
+                MimeMessage message = mailSender.createMimeMessage();
+
+                String job = newApply.getCareer().getTitle();
+                String name = newApply.getApplicant().getCv().getName();
+
+                message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
+                message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
+                message.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
                 String htmlContent = "<h1 style=\"color:black;\">Dear " + name + ",</h1>" +
-                        "<p style=\"color:black;\">Thank you for your interest in the "+job+" role at Amartek. We appreciate the time and effort you invested in applying for this position.</p>" +
+                        "<p style=\"color:black;\">Thank you for your interest in the " + job
+                        + " role at Amartek. We appreciate the time and effort you invested in applying for this position.</p>"
+                        +
                         "<p style=\"color:black;\">After careful consideration, we have decided not to move forward with your application at this time. We received a significant number of applications from qualified candidates like yourself, making this selection process extremely difficult.</p>"
                         +
                         "<p style=\"color:black;\">If you have any feedback for us about our application process, we welcome your input as it helps us learn and improve!</p>"
@@ -111,28 +151,27 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "tidak berhasil menyimpan data");
     }
 
-    //getbyid
+    // getbyid
     @GetMapping("apply/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
-        List<Apply> newApply=applyRepository.findJobAppliesByUserID(id);
+        List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
         // Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
-        if(newApply.isEmpty()) {
+        if (newApply.isEmpty()) {
             // List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
         }
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
     }
 
-    //delete
+    // delete
     @DeleteMapping("apply/{id}")
     public ResponseEntity<Object> delete(@PathVariable(required = true) Integer id) {
         Boolean result = applyRepository.findById(id).isPresent();
-        if(result) {
+        if (result) {
             applyRepository.deleteById(id);
             return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil dihapus");
     }
-    
 
 }
