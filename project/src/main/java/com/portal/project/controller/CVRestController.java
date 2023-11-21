@@ -39,6 +39,28 @@ public class CVRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
+    @GetMapping("ta")
+    public ResponseEntity<Object> getTA(Model model) {
+        List<Cv> data=CvRepository.findTAByUserRole();
+        // model.addAttribute("regions", regionRepository.findAll()); 
+        if(data.isEmpty()){
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+        }
+        // return regionRepository.findAll();
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
+    @GetMapping("trainer")
+    public ResponseEntity<Object> getTrainer(Model model) {
+        List<Cv> data=CvRepository.findTrainerByUserRole();
+        // model.addAttribute("regions", regionRepository.findAll()); 
+        if(data.isEmpty()){
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+        }
+        // return regionRepository.findAll();
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
     @GetMapping("cv/{id}")
     public ResponseEntity<Object> getCV(@PathVariable int id) {
         Cv data=CvRepository.findCVByUserId(id);

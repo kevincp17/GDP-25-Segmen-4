@@ -38,11 +38,21 @@ public class ApplyRestController {
 
     @GetMapping("apply")
     public ResponseEntity<Object> get() {
-        List<Apply> data = applyRepository.findAll();
+        List<Apply> data = applyRepository.findAllJobApplies();
         if(data.isEmpty()) {
             return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan");
         }
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
+    @PostMapping("apply")
+    public ResponseEntity<Object> save(@RequestBody Apply apply) {
+        applyRepository.save(apply);
+        Boolean result = applyRepository.findById(apply.getApply_id()).isPresent();
+        if(result) {
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }
 
         @PostMapping("apply/{id}")
@@ -104,12 +114,13 @@ public class ApplyRestController {
     //getbyid
     @GetMapping("apply/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
-        Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
-        if(!result) {
-            List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
+        List<Apply> newApply=applyRepository.findJobAppliesByUserID(id);
+        // Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
+        if(newApply.isEmpty()) {
+            // List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
         }
-        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
     }
 
     //delete
