@@ -25,8 +25,12 @@ public class User {
     private String email;
     private String password;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
+    // @OneToOne
+    // @JoinColumn(name = "user_id")
+    // private Cv cv;
+
+    @JsonIgnore
+    @OneToOne(mappedBy="user")
     private Cv cv;
 
     @JsonIgnore

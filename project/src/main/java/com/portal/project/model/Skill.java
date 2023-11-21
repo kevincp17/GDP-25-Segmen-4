@@ -21,7 +21,7 @@ public class Skill {
     private Integer skill_id;
     private String name;
     private String picture;
-
+    private String skill_type;
     @JsonIgnore
     @OneToMany(mappedBy = "skill")
     public Set<CvInfo> cvInfos;
@@ -56,6 +56,14 @@ public class Skill {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public String getSkill_type() {
+        return skill_type;
+    }
+
+    public void setSkill_type(String skill_type) {
+        this.skill_type = skill_type;
     }
 
     

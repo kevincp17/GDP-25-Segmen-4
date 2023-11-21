@@ -38,6 +38,26 @@ public class CvInfoRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
+    @GetMapping("cvinfo/{id}/softskill")
+    public ResponseEntity<Object> getCVSoftSkill(@PathVariable int id) {
+        List<CvInfo> data=cvInfoRepository.findSoftSkillsByCvID(id);
+        if(data.isEmpty()){
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+        }
+        // return regionRepository.findAll();
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
+    @GetMapping("cvinfo/{id}/hardskill")
+    public ResponseEntity<Object> getCVHardSkill(@PathVariable int id) {
+        List<CvInfo> data=cvInfoRepository.findHardSkillsByCvID(id);
+        if(data.isEmpty()){
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+        }
+        // return regionRepository.findAll();
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
     @PostMapping("cvinfo/{id}/skill")
     public ResponseEntity<Object> addCVSkill(@PathVariable int id,@RequestBody CvInfo cvInfo) {
         cvInfoRepository.save(cvInfo);
