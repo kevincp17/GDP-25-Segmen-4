@@ -19,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +38,7 @@ import com.portal.project.repository.ApplyRepository;
 @RestController
 @RequestMapping("api")
 @CrossOrigin
+@EnableAsync
 public class ApplyRestController {
     @Autowired
     private ApplyRepository applyRepository;
@@ -61,9 +64,9 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }
 
+    @Async
     @PostMapping("apply/{id}")
-    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id,
-            String attachment)
+    public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id)
             throws AddressException, MessagingException {
         Boolean result = applyRepository.findById(id).isPresent();
         if (result) {
@@ -75,14 +78,13 @@ public class ApplyRestController {
             LocalDateTime now = LocalDateTime.now();
 
             Integer status = newApply.getStatus().getStatus_id();
+            String job = newApply.getCareer().getTitle();
+            String name = newApply.getApplicant().getCv().getName();
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
 
             if (status == 4) {
-                MimeMessage message = mailSender.createMimeMessage();
-                MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message, true);
-
-                String job = newApply.getCareer().getTitle();
-                String name = newApply.getApplicant().getCv().getName();
-
                 mimeMessageHelper.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 mimeMessageHelper.setTo(newApply.getApplicant().getEmail());
                 mimeMessageHelper.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
@@ -98,13 +100,8 @@ public class ApplyRestController {
                         "<p style=\"color:black;\">Talent Acquisition • PT. Bumi Amartha Teknologi Mandiri</p>";
                 mimeMessageHelper.setText(htmlContent, true);
                 mailSender.send(message);
-                // System.out.println("mail has been sent");
             }
             if (status == 5) {
-                MimeMessage message = mailSender.createMimeMessage();
-
-                String job = newApply.getCareer().getTitle();
-                String name = newApply.getApplicant().getCv().getName();
 
                 message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
@@ -121,10 +118,6 @@ public class ApplyRestController {
                 mailSender.send(message);
             }
             if (status == 6) {
-                MimeMessage message = mailSender.createMimeMessage();
-
-                String job = newApply.getCareer().getTitle();
-                String name = newApply.getApplicant().getCv().getName();
 
                 message.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 message.setRecipients(MimeMessage.RecipientType.TO, newApply.getApplicant().getEmail());
