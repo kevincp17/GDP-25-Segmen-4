@@ -1,6 +1,7 @@
 package com.portal.project.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_tr_apply_job")
@@ -36,6 +40,10 @@ public class Apply {
     @ManyToOne
     @JoinColumn(name = "cv_id")
     private Cv cv;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "apply")
+    private Set<Score> scores;
 
     // @ManyToOne
     // @JoinColumn(name = "status_id")
@@ -87,6 +95,14 @@ public class Apply {
 
     public void setCv(Cv cv) {
         this.cv = cv;
+    }
+
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
 
     

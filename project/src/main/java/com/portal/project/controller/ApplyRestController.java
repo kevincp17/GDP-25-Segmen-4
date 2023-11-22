@@ -67,7 +67,7 @@ public class ApplyRestController {
     @Async
     @PostMapping("apply/{id}")
     public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id)
-            throws AddressException, MessagingException {
+        throws AddressException, MessagingException {
         Boolean result = applyRepository.findById(id).isPresent();
         if (result) {
             Apply newApply = applyRepository.findById(id).orElse(null);

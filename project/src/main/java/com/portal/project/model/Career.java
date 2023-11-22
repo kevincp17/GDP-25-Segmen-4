@@ -45,6 +45,10 @@ public class Career {
     @OneToMany(mappedBy = "career")
     private Set<Career> career;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "career")
+    private Set<QualificationJob> qualificationJobs;
+
     public Integer getJob_id() {
         return job_id;
     }
@@ -123,6 +127,12 @@ public class Career {
     }
     public void setInterviews(Set<Interview> interviews) {
         this.interviews = interviews;
+    }
+    public Set<QualificationJob> getQualificationJobs() {
+        return qualificationJobs;
+    }
+    public void setQualificationJobs(Set<QualificationJob> qualificationJobs) {
+        this.qualificationJobs = qualificationJobs;
     }
     
     
