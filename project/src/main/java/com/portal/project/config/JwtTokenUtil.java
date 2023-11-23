@@ -68,6 +68,9 @@ public class JwtTokenUtil implements Serializable {
 		if (roles.contains(new SimpleGrantedAuthority("Applicant"))) {
 			claims.put("role", "Applicant");
 		}
+		if (roles.contains(new SimpleGrantedAuthority("Admin"))) {
+			claims.put("role", "Admin");
+		}
 		if(userDetails instanceof MyUserDetails){
 			Integer user_id = ((MyUserDetails) userDetails).getUser_id();
 			claims.put("user_id", user_id);

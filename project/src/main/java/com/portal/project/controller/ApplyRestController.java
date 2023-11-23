@@ -45,6 +45,15 @@ public class ApplyRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
+    @GetMapping("applystatus")
+    public ResponseEntity<Object> getStatusCount() {
+        List<Apply> data = applyRepository.getApplyStatusCount();
+        if(data.isEmpty()) {
+            return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan", data);
+        }
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
     @PostMapping("apply")
     public ResponseEntity<Object> save(@RequestBody Apply apply) {
         applyRepository.save(apply);

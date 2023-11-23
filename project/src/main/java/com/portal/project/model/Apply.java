@@ -20,6 +20,7 @@ public class Apply {
     private Integer apply_id;
     // private String status;
     private Date date;
+    private Date cooldown_date;
 
     @ManyToOne
     @JoinColumn(name = "job_id")
@@ -87,6 +88,14 @@ public class Apply {
 
     public void setCv(Cv cv) {
         this.cv = cv;
+    }
+
+    public Date getCooldown_date() {
+        return cooldown_date;
+    }
+
+    public void setCooldown_date(Date cooldown_date) {
+        this.cooldown_date = cooldown_date;
     }
 
     

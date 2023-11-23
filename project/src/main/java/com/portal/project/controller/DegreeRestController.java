@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.project.handler.CustomResponse;
-import com.portal.project.model.Apply;
+import com.portal.project.model.Degree;
 import com.portal.project.model.Institute;
-import com.portal.project.model.Skill;
+import com.portal.project.repository.DegreeRepository;
 import com.portal.project.repository.InstituteRepository;
 
 @CrossOrigin
 @RestController
 @RequestMapping("api")
-public class InstituteRestController {
+public class DegreeRestController {
     @Autowired
-    private InstituteRepository instituteRepository;
+    private DegreeRepository degreeRepository;
 
-    @GetMapping("institute")
+    @GetMapping("degree")
     public ResponseEntity<Object> get() {
-        List<Institute> data = instituteRepository.findAll();
+        List<Degree> data = degreeRepository.findAll();
         if (data.isEmpty()) {
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
         }
@@ -37,24 +37,14 @@ public class InstituteRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
-    // @PostMapping("institute")
-    // public ResponseEntity<Object> save(@RequestBody Institute institute) {
-    //     instituteRepository.save(institute);
-    //     Boolean result = instituteRepository.findById(institute.getInstitute_id()).isPresent();
-    //     if(result) {
-    //         return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",instituteRepository.findById(institute.getInstitute_id()));
-    //     }
-    //     return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
-    // }
-
-    @PostMapping(value={"institute", "institute/{id}"})
-    public ResponseEntity<Object> save(@PathVariable(required = false) Integer id,@RequestBody Institute institute){
-        instituteRepository.save(institute);
-        Boolean result=instituteRepository.findById(institute.getInstitute_id()).isPresent();
+    @PostMapping(value={"degree", "degree/{id}"})
+    public ResponseEntity<Object> save(@PathVariable(required = false) Integer id,@RequestBody Degree degree){
+        degreeRepository.save(degree);
+        Boolean result=degreeRepository.findById(degree.getDegree_id()).isPresent();
         if(id!=null){
             if (result) {
                 return CustomResponse.generate(HttpStatus.OK, "data berhasil diupdate",
-                        instituteRepository.findById(institute.getInstitute_id()));
+                        degreeRepository.findById(degree.getDegree_id()));
             }
         }
         else{
@@ -65,10 +55,10 @@ public class InstituteRestController {
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }
 
-    @DeleteMapping("institute/{id}")
-    public ResponseEntity<Object> deleteSkill(@PathVariable int id,@RequestBody Institute institute) {
-        instituteRepository.delete(institute);
-        Boolean result=instituteRepository.findById(institute.getInstitute_id()).isPresent();
+    @DeleteMapping("degree/{id}")
+    public ResponseEntity<Object> deleteSkill(@PathVariable int id,@RequestBody Degree degree) {
+        degreeRepository.delete(degree);
+        Boolean result=degreeRepository.findById(degree.getDegree_id()).isPresent();
         if(!result){
             return CustomResponse.generate(HttpStatus.OK, "data berhasil dihapus");
         }

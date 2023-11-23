@@ -52,7 +52,7 @@ public class CareerRestController {
         careerRepository.save(career);
         Boolean result=careerRepository.findById(career.getJob_id()).isPresent();
         if(result){
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",careerRepository.findById(career.getJob_id()));
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }

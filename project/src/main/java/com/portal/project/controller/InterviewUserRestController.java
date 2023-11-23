@@ -70,6 +70,24 @@ public class InterviewUserRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
+    @GetMapping("interviews/ta")
+    public ResponseEntity<Object> getInterviewTA() {
+        List<InterviewUser> data = interviewUserRepository.findInterviewUserByTA();
+        if (data.isEmpty()) {
+            return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan", data);
+        }
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
+    @GetMapping("interviews/trainer")
+    public ResponseEntity<Object> getInterviewTrainer() {
+        List<InterviewUser> data = interviewUserRepository.findInterviewUserByTrainer();
+        if (data.isEmpty()) {
+            return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan", data);
+        }
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
     @PostMapping("interviews")
     public ResponseEntity<Object> save(@RequestBody InterviewUser interviewUser)
     throws AddressException, MessagingException {

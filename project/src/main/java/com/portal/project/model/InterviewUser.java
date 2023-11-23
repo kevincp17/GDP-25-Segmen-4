@@ -47,6 +47,10 @@ public class InterviewUser {
     private User trainer;
 
     @ManyToOne
+    @JoinColumn(name = "cv_id")
+    private Cv cv;
+
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
@@ -114,9 +118,11 @@ public class InterviewUser {
         this.interview_date = interview_date;
     }
 
-    
+    public Cv getCv() {
+        return cv;
+    }
 
-    
-
-    
+    public void setCv(Cv cv) {
+        this.cv = cv;
+    }
 }

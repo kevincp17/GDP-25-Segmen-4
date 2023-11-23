@@ -26,4 +26,10 @@ public interface InterviewUserRepository extends JpaRepository<InterviewUser, In
     
     @Query(value = "SELECT * FROM tb_tr_interview_user where trainer_id= ?1",nativeQuery = true)
     public List<InterviewUser> findTrainerByUserID(Integer id);
+
+    @Query(value = "SELECT * FROM tb_tr_interview_user iu,tb_m_user u where iu.ta_id=u.user_id",nativeQuery = true)
+    public List<InterviewUser> findInterviewUserByTA();
+
+    @Query(value = "SELECT * FROM tb_tr_interview_user iu,tb_m_user u where iu.trainer_id=u.user_id",nativeQuery = true)
+    public List<InterviewUser> findInterviewUserByTrainer();
 }

@@ -37,6 +37,10 @@ public class Cv {
 
     @JsonIgnore
     @OneToMany(mappedBy="cv")
+    public Set<InterviewUser> interviewUsers;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="cv")
     public Set<Apply> appplies;
 
     public Integer getCv_id() {
@@ -101,6 +105,14 @@ public class Cv {
 
     public void setAppplies(Set<Apply> appplies) {
         this.appplies = appplies;
+    }
+
+    public Set<InterviewUser> getInterviewUsers() {
+        return interviewUsers;
+    }
+
+    public void setInterviewUsers(Set<InterviewUser> interviewUsers) {
+        this.interviewUsers = interviewUsers;
     }
 
     
