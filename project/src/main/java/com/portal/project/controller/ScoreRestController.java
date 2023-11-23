@@ -1,5 +1,6 @@
 package com.portal.project.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,30 @@ public class ScoreRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
+    // @PostMapping("score")
+    // public ResponseEntity<Object> save(@RequestBody Score score) {
+    //     scoreRepository.save(score);
+    //     Boolean result = scoreRepository.findById(score.getScore_id()).isPresent();
+    //     if (result) {
+    //         return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+    //     }
+    //     return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
+    // }
+
     @PostMapping("score")
-    public ResponseEntity<Object> save(@RequestBody Score score) {
-        scoreRepository.save(score);
-        Boolean result = scoreRepository.findById(score.getScore_id()).isPresent();
-        if (result) {
+    public ResponseEntity<Object> save(@RequestBody List<Score> scores) {
+        List<Score> saveScore = new ArrayList<>();
+
+        for(Score score : scores){
+            scoreRepository.save(score);
+            if(score.getScore_id() != null) {
+                saveScore.add(score);
+            }
+        }
+
+        if(!saveScore.isEmpty()){
             return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }
-
 }

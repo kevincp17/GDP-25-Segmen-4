@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -32,6 +33,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.portal.project.handler.CustomResponse;
 import com.portal.project.model.Apply;
+import com.portal.project.model.InterviewUser;
 // import com.portal.project.model.InterviewUser;
 import com.portal.project.repository.ApplyRepository;
 
@@ -67,7 +69,7 @@ public class ApplyRestController {
     @Async
     @PostMapping("apply/{id}")
     public ResponseEntity<Object> save(@RequestBody Apply apply, @PathVariable(required = true) Integer id)
-        throws AddressException, MessagingException {
+            throws AddressException, MessagingException {
         Boolean result = applyRepository.findById(id).isPresent();
         if (result) {
             Apply newApply = applyRepository.findById(id).orElse(null);
@@ -90,8 +92,10 @@ public class ApplyRestController {
                 mimeMessageHelper.setFrom(new InternetAddress("jobportal.amartek@gmail.com"));
                 mimeMessageHelper.setTo(newApply.getApplicant().getEmail());
                 mimeMessageHelper.setSubject("Amartek " + job + " Recruitment Process" + " [" + dtf.format(now) + "] ");
-                mimeMessageHelper.addAttachment("AMARTEK Employee Master Form & Joining Sheet.xlsx", new ClassPathResource("/static/file/AMARTEK Employee Master Form & Joining Sheet.xlsx"));
-                mimeMessageHelper.addAttachment("Offering Letter.pdf", new ClassPathResource("/static/file/Offering Letter.pdf"));
+                mimeMessageHelper.addAttachment("AMARTEK Employee Master Form & Joining Sheet.xlsx",
+                        new ClassPathResource("/static/file/AMARTEK Employee Master Form & Joining Sheet.xlsx"));
+                mimeMessageHelper.addAttachment("Offering Letter.pdf",
+                        new ClassPathResource("/static/file/Offering Letter.pdf"));
                 String htmlContent = "<h4 style=\"color:black;\">Dear " + name + ",</h4>" +
 
                         "<p style=\"color:black;\">Thank you for your interest joining in AMARTEK. We are delighted to offer you the position of <b>"
@@ -160,6 +164,16 @@ public class ApplyRestController {
             return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
         }
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
+    }
+
+    @GetMapping("apply-id/{id}")
+    public ResponseEntity<Object> getById(@PathVariable(required = true) Integer id) {
+        Boolean result = applyRepository.findById(id).isEmpty();
+        if (!result) {
+            Optional<Apply> newApply = applyRepository.findById(id);
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
     }
 
     // delete
