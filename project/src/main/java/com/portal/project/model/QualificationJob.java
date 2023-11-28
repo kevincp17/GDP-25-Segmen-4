@@ -1,5 +1,7 @@
 package com.portal.project.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.hibernate.mapping.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,6 +29,10 @@ public class QualificationJob {
     @ManyToOne
     @JoinColumn(name = "job_id")
     private Career career;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "qualificationJob")
+    private Set<QualificationJob> qualificationJob;
 
     public Integer getQualification_job_id() {
         return qualification_job_id;
@@ -54,4 +58,11 @@ public class QualificationJob {
         this.career = career;
     }
 
+    public Set<QualificationJob> getQualificationJob() {
+        return qualificationJob;
+    }
+
+    public void setQualificationJob(Set<QualificationJob> qualificationJob) {
+        this.qualificationJob = qualificationJob;
+    }
 }

@@ -40,6 +40,14 @@ public class Cv {
     public Set<InterviewUser> interviewUsers;
 
     @JsonIgnore
+    @OneToMany(mappedBy="cv_trainer")
+    public Set<InterviewUser> interviewUsersTrainer;
+
+    @JsonIgnore
+    @OneToMany(mappedBy="cv_ta")
+    public Set<InterviewUser> interviewUsersTA;
+
+    @JsonIgnore
     @OneToMany(mappedBy="cv")
     public Set<Apply> appplies;
 
@@ -113,6 +121,22 @@ public class Cv {
 
     public void setInterviewUsers(Set<InterviewUser> interviewUsers) {
         this.interviewUsers = interviewUsers;
+    }
+
+    public Set<InterviewUser> getInterviewUsersTrainer() {
+        return interviewUsersTrainer;
+    }
+
+    public void setInterviewUsersTrainer(Set<InterviewUser> interviewUsersTrainer) {
+        this.interviewUsersTrainer = interviewUsersTrainer;
+    }
+
+    public Set<InterviewUser> getInterviewUsersTA() {
+        return interviewUsersTA;
+    }
+
+    public void setInterviewUsersTA(Set<InterviewUser> interviewUsersTA) {
+        this.interviewUsersTA = interviewUsersTA;
     }
 
     

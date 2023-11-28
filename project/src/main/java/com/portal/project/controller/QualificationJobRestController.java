@@ -35,6 +35,15 @@ public class QualificationJobRestController {
         return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
     }
 
+    @GetMapping("qualification_job/{id}")
+    public ResponseEntity<Object> getStatusCount(@PathVariable Integer id) {
+        List<QualificationJob> data = qualificationJobRepository.findQualificationJobsByApplyId(id);
+        if (data.isEmpty()) {
+            return CustomResponse.generate(HttpStatus.OK, "data tidak ditemukan", data);
+        }
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", data);
+    }
+
     @PostMapping(value = { "qualification_job", "qualification_job/{id}" })
     public ResponseEntity<Object> save(@PathVariable(required = false) Integer id,
             @RequestBody QualificationJob qualificationJob) {

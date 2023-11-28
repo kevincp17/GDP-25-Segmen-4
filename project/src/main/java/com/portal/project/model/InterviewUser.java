@@ -51,6 +51,14 @@ public class InterviewUser {
     private Cv cv;
 
     @ManyToOne
+    @JoinColumn(name = "cv_trainer_id")
+    private Cv cv_trainer;
+
+    @ManyToOne
+    @JoinColumn(name = "cv_ta_id")
+    private Cv cv_ta;
+
+    @ManyToOne
     @JoinColumn(name = "status_id")
     private Status status;
 
@@ -125,4 +133,22 @@ public class InterviewUser {
     public void setCv(Cv cv) {
         this.cv = cv;
     }
+
+    public Cv getCv_trainer() {
+        return cv_trainer;
+    }
+
+    public void setCv_trainer(Cv cv_trainer) {
+        this.cv_trainer = cv_trainer;
+    }
+
+    public Cv getCv_ta() {
+        return cv_ta;
+    }
+
+    public void setCv_ta(Cv cv_ta) {
+        this.cv_ta = cv_ta;
+    }
+
+    
 }
