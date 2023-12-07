@@ -22,14 +22,15 @@ public class Score {
     @Column(name = "score_id")
     private Integer score_id;
     private Float score;
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "qualification_job_id")
     private QualificationJob qualificationJob;
 
     @ManyToOne
-    @JoinColumn(name = "apply_id")
-    private Apply apply;
+    @JoinColumn(name = "interview_user_id")
+    private InterviewUser interviewUser;
 
     public Integer getScore_id() {
         return score_id;
@@ -55,11 +56,21 @@ public class Score {
         this.qualificationJob = qualificationJob;
     }
 
-    public Apply getApply() {
-        return apply;
+    public InterviewUser getInterviewUser() {
+        return interviewUser;
     }
 
-    public void setApply(Apply apply) {
-        this.apply = apply;
+    public void setInterviewUser(InterviewUser interviewUser) {
+        this.interviewUser = interviewUser;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    
 }

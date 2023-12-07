@@ -18,6 +18,9 @@ public interface ApplyRepository extends JpaRepository<Apply, Integer>{
     @Query(value = "SELECT * FROM tb_tr_apply_job a,tb_m_user u,tb_m_cv c where a.user_id=:id and  a.user_id=u.user_id and  u.user_id=c.user_id",nativeQuery = true)
     public List<Apply> findJobAppliesByUserID(@Param("id") Integer id); 
 
+    @Query(value = "SELECT * FROM tb_tr_apply_job a,tb_m_user u,tb_m_cv c where a.user_id=:uid and a.job_id=:jid and  a.user_id=u.user_id and  u.user_id=c.user_id",nativeQuery = true)
+    public List<Apply> findJobAppliesByUserJobID(@Param("uid") Integer uid,@Param("jid") Integer jid); 
+
     @Query(value = "SELECT status_id,count(status_id) as status_count FROM tb_tr_apply_job group by status_id", nativeQuery = true)
     public List<Apply> getApplyStatusCount();
 }

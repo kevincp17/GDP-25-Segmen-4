@@ -62,6 +62,10 @@ public class InterviewUser {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "interviewUser")
+    private Set<Score> scores;
+
     public Integer getInterview_user_id() {
         return interview_user_id;
     }
@@ -150,5 +154,13 @@ public class InterviewUser {
         this.cv_ta = cv_ta;
     }
 
-    
+    public Set<Score> getScores() {
+        return scores;
+    }
+
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
+    }
+
+        
 }

@@ -70,6 +70,7 @@ public class ApplyRestController {
         Boolean result = applyRepository.findById(id).isPresent();
         if (result) {
             Apply newApply = applyRepository.findById(id).orElse(null);
+            newApply.setCooldown_date(apply.getCooldown_date());
             newApply.setStatus(apply.getStatus());
             applyRepository.save(newApply);
 
@@ -115,7 +116,7 @@ public class ApplyRestController {
                 mailSender.send(message);
             }
 
-            return CustomResponse.generate(HttpStatus.OK, "berhasil menyimpan data");
+            return CustomResponse.generate(HttpStatus.OK, "berhasil menyimpan data",applyRepository.findById(apply.getApply_id()));
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "tidak berhasil menyimpan data");
     }
@@ -124,6 +125,17 @@ public class ApplyRestController {
     @GetMapping("apply/{id}")
     public ResponseEntity<Object> get(@PathVariable(required = true) Integer id) {
         List<Apply> newApply=applyRepository.findJobAppliesByUserID(id);
+        // Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
+        if(newApply.isEmpty()) {
+            // List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
+        }
+        return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newApply);
+    }
+
+    @GetMapping("apply/{uid}/{jid}")
+    public ResponseEntity<Object> getUserJob(@PathVariable(required = true) Integer uid,@PathVariable(required = true) Integer jid) {
+        List<Apply> newApply=applyRepository.findJobAppliesByUserJobID(uid,jid);
         // Boolean result = applyRepository.findJobAppliesByUserID(id).isEmpty();
         if(newApply.isEmpty()) {
             // List<Apply> newApply = applyRepository.findJobAppliesByUserID(id);

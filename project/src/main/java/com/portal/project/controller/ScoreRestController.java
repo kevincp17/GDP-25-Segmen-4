@@ -44,18 +44,11 @@ public class ScoreRestController {
     // }
 
     @PostMapping("score")
-    public ResponseEntity<Object> save(@RequestBody List<Score> scores) {
-        List<Score> saveScore = new ArrayList<>();
-
-        for(Score score : scores){
-            scoreRepository.save(score);
-            if(score.getScore_id() != null) {
-                saveScore.add(score);
-            }
-        }
-
-        if(!saveScore.isEmpty()){
-            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan");
+    public ResponseEntity<Object> save(@RequestBody Score scores) {
+        scoreRepository.save(scores);
+        Boolean result=scoreRepository.findById(scores.getScore_id()).isPresent();
+        if(result){
+            return CustomResponse.generate(HttpStatus.OK, "data berhasil disimpan",scoreRepository.findById(scores.getScore_id()));
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak berhasil disimpan");
     }

@@ -42,10 +42,6 @@ public class Apply {
     @JoinColumn(name = "cv_id")
     private Cv cv;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "apply")
-    private Set<Score> scores;
-
     // @ManyToOne
     // @JoinColumn(name = "status_id")
     // private Status status;
@@ -104,13 +100,5 @@ public class Apply {
 
     public void setCooldown_date(Date cooldown_date) {
         this.cooldown_date = cooldown_date;
-    }
-
-    public Set<Score> getScores() {
-        return scores;
-    }
-
-    public void setScores(Set<Score> scores) {
-        this.scores = scores;
     }
 }
