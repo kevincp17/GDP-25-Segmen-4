@@ -42,9 +42,9 @@ public class Apply {
     @JoinColumn(name = "cv_id")
     private Cv cv;
 
-    // @ManyToOne
-    // @JoinColumn(name = "status_id")
-    // private Status status;
+    // @JsonIgnore
+    // @OneToMany(mappedBy = "apply")
+    // private Set<InterviewUser> interviewUsers;
 
     public Integer getApply_id() {
         return apply_id;
@@ -101,4 +101,13 @@ public class Apply {
     public void setCooldown_date(Date cooldown_date) {
         this.cooldown_date = cooldown_date;
     }
+
+    // public Set<InterviewUser> getInterviewUser() {
+    //     return interviewUsers;
+    // }
+
+    // public void setInterviewUser(Set<InterviewUser> interviewUsers) {
+    //     this.interviewUsers = interviewUsers;
+    // }
+
 }

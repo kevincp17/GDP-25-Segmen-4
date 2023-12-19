@@ -62,6 +62,10 @@ public class InterviewUser {
     @JoinColumn(name = "status_id")
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "apply_id")
+    private Apply apply;
+
     @JsonIgnore
     @OneToMany(mappedBy = "interviewUser")
     private Set<Score> scores;
@@ -162,5 +166,11 @@ public class InterviewUser {
         this.scores = scores;
     }
 
-        
+    public Apply getApply() {
+        return apply;
+    }
+
+    public void setApply(Apply apply) {
+        this.apply = apply;
+    }
 }

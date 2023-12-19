@@ -1,5 +1,6 @@
 package com.portal.project.repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -32,4 +33,7 @@ public interface InterviewUserRepository extends JpaRepository<InterviewUser, In
 
     @Query(value = "SELECT * FROM tb_tr_interview_user iu,tb_m_user u where iu.trainer_id=u.user_id",nativeQuery = true)
     public List<InterviewUser> findInterviewUserByTrainer();
+
+    @Query(value = "SELECT a.job_id,AVG(s.score) as average_score FROM tb_tr_interview_user iu,tb_tr_apply_job a,tb_tr_score s where iu.apply_id=a.apply_id and iu.interview_user_id=s.interview_user_id and a.status_id=5 GROUP BY a.job_id",nativeQuery = true)
+    public List<Object> findAverageScore();
 }

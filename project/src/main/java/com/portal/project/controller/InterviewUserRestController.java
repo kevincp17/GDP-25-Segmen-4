@@ -317,4 +317,14 @@ public class InterviewUserRestController {
         }
         return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
     }
+
+    @GetMapping("interviewsTrainer/average")
+    public ResponseEntity<Object> getAverage() {
+        Boolean result = interviewUserRepository.findAverageScore().isEmpty();
+        if (!result) {
+            List<Object> newInterview = interviewUserRepository.findAverageScore();
+            return CustomResponse.generate(HttpStatus.OK, "data ditemukan", newInterview);
+        }
+        return CustomResponse.generate(HttpStatus.BAD_REQUEST, "data tidak ditemukan");
+    }
 }
